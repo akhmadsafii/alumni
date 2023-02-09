@@ -3,11 +3,13 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', [DashboardController::class, 'admin'])->name('first_page');
+Route::get('/', [GuestController::class, 'index'])->name('first_page');
+Route::get('discussion', [GuestController::class, 'discussion'])->name('discussion');
 
 Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('login', [AuthController::class, 'login'])->name('login');
