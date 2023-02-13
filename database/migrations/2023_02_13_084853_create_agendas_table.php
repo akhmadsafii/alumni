@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->dateTimeTz('start_date')->nullable();
             $table->dateTimeTz('end_date')->nullable();
+            $table->string('file')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });

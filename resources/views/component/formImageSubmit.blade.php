@@ -2,8 +2,8 @@
     function formImageSubmit(id_form, btnSubmit, url, modal) {
         $('body').on('submit', id_form, function(e) {
             e.preventDefault();
-            $(btnSubmit).addClass('m-loader m-loader--light m-loader--right');
-            $(btnSubmit).attr("disabled", true);
+            // $(btnSubmit).addClass('m-loader m-loader--light m-loader--right');
+            // $(btnSubmit).attr("disabled", true);
             var formData = new FormData(this);
             $.ajax({
                 type: "POST",

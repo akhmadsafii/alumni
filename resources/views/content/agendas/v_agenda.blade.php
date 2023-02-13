@@ -114,7 +114,7 @@
                                     <div class="form-group">
                                         <label>Waktu Mulai</label>
                                         <div class="input-group date">
-                                            <input type="text" name="extermination_date" id="e_extermination_date"
+                                            <input type="text" name="start_date" id="start_date"
                                                 class="form-control m-input m_datetimepicker_3" readonly
                                                 value="{{ now() }}" />
                                             <div class="input-group-append">
@@ -127,8 +127,15 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Selesai</label>
-                                        <input type="text" class="form-control m-input" id="location" name="location"
-                                            placeholder="Tempat">
+                                        <div class="input-group date">
+                                            <input type="text" name="end_date" id="end_date"
+                                                class="form-control m-input m_datetimepicker_3" readonly
+                                                value="{{ now() }}" />
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><i
+                                                        class="la la-calendar-check-o glyphicon-th"></i></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -187,17 +194,20 @@
                         searchable: false,
                         className: 'align-middle'
                     }, {
-                        data: 'name',
-                        name: 'name',
+                        data: 'title',
+                        name: 'title',
                     }, {
-                        data: 'phone',
-                        name: 'phone',
+                        data: 'author',
+                        name: 'author',
                     }, {
-                        data: 'email',
-                        name: 'email',
+                        data: 'time',
+                        name: 'time',
                     }, {
-                        data: 'last_login',
-                        name: 'last_login',
+                        data: 'location',
+                        name: 'location',
+                    }, {
+                        data: 'status',
+                        name: 'status',
                     }, {
                         data: 'action',
                         name: 'action',
