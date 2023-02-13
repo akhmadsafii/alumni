@@ -19,4 +19,46 @@ class Helper
             file_put_contents($path, str_replace($old, $new, $content));
         }
     }
+
+    public static function str_random($length)
+    {
+        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
+    }
+
+    public static function option_array()
+    {
+        $option = [
+            1 => 'Sangat Baik',
+            2 => 'Baik',
+            3 => 'Cukup Baik',
+            4 => 'Kurang Baik',
+            5 => 'Tidak Baik'
+        ];
+        return $option;
+    }
+
+    public static function get_option($value)
+    {
+        switch ($value) {
+            case 1:
+                return 'Sangat Baik';
+                break;
+            case 2:
+                return 'Baik';
+                break;
+            case 3:
+                return 'Cukup Baik';
+                break;
+            case 4:
+                return 'Kurang Baik';
+                break;
+            case 5:
+                return 'Tidak Baik';
+                break;
+            default:
+                return 'Error';
+                break;
+        }
+    }
 }

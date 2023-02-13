@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategorySurveyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\GuestController;
@@ -46,8 +47,17 @@ Route::middleware('auth:admin')->group(function () {
             Route::get('/', [DiscussionController::class, 'index'])->name('page');
         });
 
+        Route::prefix('categories')->name('category.')->group(function () {
+            Route::post('/', [CategorySurveyController::class, 'store'])->name('store');
+            Route::get('delete', [CategorySurveyController::class, 'delete'])->name('delete');
+            Route::get('detail', [CategorySurveyController::class, 'detail'])->name('detail');
+        });
+
         Route::prefix('surveys')->name('survey.')->group(function () {
             Route::get('/', [SurveyController::class, 'index'])->name('page');
+            Route::post('/', [SurveyController::class, 'store'])->name('store');
+            Route::get('delete', [SurveyController::class, 'delete'])->name('delete');
+            Route::get('detail/{code}', [SurveyController::class, 'detail'])->name('detail');
         });
     });
 });
