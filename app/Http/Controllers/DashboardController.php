@@ -11,8 +11,8 @@ class DashboardController extends Controller
         return view('content.dashboard.v_admin');
     }
 
-    public function user()
-    {
-        return view('content-users.dashboard.v_dashboard');
-    }
+    // public function user()
+    // {
+    //     return view('content-users.dashboard.v_dashboard');
+    // }
 }

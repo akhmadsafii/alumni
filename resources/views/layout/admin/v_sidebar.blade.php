@@ -4,6 +4,14 @@
         <li class="m-menu__item " aria-haspopup="true"><a href="{{ route('admin.dashboard') }}" class="m-menu__link "><span
                     class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-line-graph"></i><span
                     class="m-menu__link-text">Dashboard</span></a></li>
+        <li class="m-menu__item " aria-haspopup="true">
+            <a href="{{ route('admin.discussion.page') }}" class="m-menu__link "><span class="m-menu__item-here"></span><i
+                    class="m-menu__link-icon flaticon-chat-1"></i><span class="m-menu__link-text">Diskusi</span></a>
+        </li>
+        <li class="m-menu__item " aria-haspopup="true">
+            <a href="{{ route('admin.survey.page') }}" class="m-menu__link "><span class="m-menu__item-here"></span><i
+                    class="m-menu__link-icon flaticon-computer"></i><span class="m-menu__link-text">Survey</span></a>
+        </li>
         <li class="m-menu__item  m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true"
             m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><span
                     class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-layers"></i><span
@@ -17,15 +25,16 @@
                             class="m-menu__link "><i
                                 class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
                                 class="m-menu__link-text">Siswa</span></a></li>
-                    <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1"><a href="{{ route('admin.manage.page') }}"
-                            class="m-menu__link "><i
+                    <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1"><a
+                            href="{{ route('admin.manage.page') }}" class="m-menu__link "><i
                                 class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
                                 class="m-menu__link-text">Admin</span></a></li>
                 </ul>
             </div>
         </li>
-        <li class="m-menu__item " aria-haspopup="true"><a href="{{ route('admin.setting.page') }}" class="m-menu__link "><span
-            class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-settings-1"></i><span
-            class="m-menu__link-text">Setting </span></a></li>
+        <li class="m-menu__item " aria-haspopup="true"><a href="{{ route('admin.setting.page') }}"
+                class="m-menu__link "><span class="m-menu__item-here"></span><i
+                    class="m-menu__link-icon flaticon-settings-1"></i><span class="m-menu__link-text">Setting
+                </span></a></li>
     </ul>
 </div>

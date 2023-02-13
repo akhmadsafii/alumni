@@ -3,9 +3,11 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [GuestController::class, 'index'])->name('first_page');
@@ -38,6 +40,14 @@ Route::middleware('auth:admin')->group(function () {
             Route::get('/', [ProfileController::class, 'admin'])->name('page');
             Route::post('update', [ProfileController::class, 'update'])->name('update');
             Route::post('reset-password', [ProfileController::class, 'update_password'])->name('update_password');
+        });
+
+        Route::prefix('discussions')->name('discussion.')->group(function () {
+            Route::get('/', [DiscussionController::class, 'index'])->name('page');
+        });
+
+        Route::prefix('surveys')->name('survey.')->group(function () {
+            Route::get('/', [SurveyController::class, 'index'])->name('page');
         });
     });
 });
