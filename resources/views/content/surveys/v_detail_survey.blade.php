@@ -11,7 +11,8 @@
                     </div>
                 </div>
                 <div class="m-portlet__head-tools">
-                    <a href="#" class="btn btn-accent m-btn m-btn--icon m-btn--wide m-btn--md m--margin-right-10">
+                    <a href="{{ route('admin.survey.information', $category['code']) }}"
+                        class="btn btn-accent m-btn m-btn--icon m-btn--wide m-btn--md m--margin-right-10">
                         <span>
                             <span>Informasi</span>
                         </span>
@@ -42,7 +43,7 @@
                                     class="btn btn-danger m-btn m-btn--icon m-btn--icon-only m-1">
                                     <i class="la la-trash"></i>
                                 </a>
-                                <a href="javascript:void(0)" onclick="editSurvey()"
+                                <a href="javascript:void(0)" onclick="editSurvey({{ $survey['id'] }})"
                                     class="btn btn-primary m-btn m-btn--icon m-btn--icon-only m-1">
                                     <i class="la la-pencil"></i>
                                 </a>
@@ -50,8 +51,6 @@
                         </tr>
                     @endforeach
                 @endif
-
-
             </table>
         </div>
     </div>
@@ -131,23 +130,22 @@
                 $('#modalSurvey').modal('show');
             }
 
-            // function editData(id) {
-            //     $.ajax({
-            //         url: '{{ route('admin.manage.detail') }}',
-            //         data: {
-            //             id
-            //         },
-            //         success: (data) => {
-            //             $('.modal-title').html('Edit {{ session('title') }}');
-            //             $('#id_admin').val(data.id);
-            //             $('#name').val(data.name);
-            //             $('#email').val(data.email);
-            //             $('#phone').val(data.phone);
-            //             $('#preview-image').attr('src', data.avatar);
-            //             $('#modalForm').modal('show');
-            //         }
-            //     });
-            // }
+            function editSurvey(id) {
+                $.ajax({
+                    url: '{{ route('admin.survey.info') }}',
+                    data: {
+                        id
+                    },
+                    success: (data) => {
+                        $('.modal-title').html('Edit {{ session('title') }}');
+                        $('#id_survey').val(data.id);
+                        $('#question').val(data.question);
+                        $('#type').val(data.type).trigger('change');
+                        $('#eid_category').val(data.id_category);
+                        $('#modalSurvey').modal('show');
+                    }
+                });
+            }
 
             function deleteSurvey(id) {
                 if (confirm("Apa kamu yakin ingin menghapus data ini?") == true) {

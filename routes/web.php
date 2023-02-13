@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategorySurveyController;
 use App\Http\Controllers\DashboardController;
@@ -58,6 +59,15 @@ Route::middleware('auth:admin')->group(function () {
             Route::post('/', [SurveyController::class, 'store'])->name('store');
             Route::get('delete', [SurveyController::class, 'delete'])->name('delete');
             Route::get('detail/{code}', [SurveyController::class, 'detail'])->name('detail');
+            Route::get('info', [SurveyController::class, 'info'])->name('info');
+            Route::get('information/{code}', [SurveyController::class, 'information'])->name('information');
+        });
+
+        Route::prefix('agendas')->name('agenda.')->group(function () {
+            Route::get('/', [AgendaController::class, 'index'])->name('page');
+            Route::post('/', [AgendaController::class, 'store'])->name('store');
+            // Route::get('delete', [CategorySurveyController::class, 'delete'])->name('delete');
+            // Route::get('detail', [CategorySurveyController::class, 'detail'])->name('detail');
         });
     });
 });

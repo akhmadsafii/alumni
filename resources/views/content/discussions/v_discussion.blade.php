@@ -43,10 +43,10 @@
                     <div class="card-header">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center">
-                                <img class="img-xs rounded-circle" src="{{ asset('asset/img/user4.jpg') }}" width="60"
+                                <img class="img-xs rounded-circle" src="{{ asset('asset/img/user4.jpg') }}" width="40"
                                     alt="">
                                 <div class="ml-2">
-                                    <p>AKhmad safii</p>
+                                    <p class="m-0">AKhmad safii</p>
                                     <p class="tx-11 mb-0 text-muted">20 menit yang lalu</p>
                                 </div>
                             </div>

@@ -12,6 +12,10 @@
             <a href="{{ route('admin.survey.page') }}" class="m-menu__link "><span class="m-menu__item-here"></span><i
                     class="m-menu__link-icon flaticon-computer"></i><span class="m-menu__link-text">Survey</span></a>
         </li>
+        <li class="m-menu__item " aria-haspopup="true">
+            <a href="{{ route('admin.agenda.page') }}" class="m-menu__link "><span class="m-menu__item-here"></span><i
+                    class="m-menu__link-icon flaticon-calendar-1"></i><span class="m-menu__link-text">Agenda</span></a>
+        </li>
         <li class="m-menu__item  m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true"
             m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><span
                     class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-layers"></i><span
