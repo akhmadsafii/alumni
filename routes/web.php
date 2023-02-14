@@ -3,9 +3,12 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategorySurveyController;
+use App\Http\Controllers\ClusterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscussionController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
@@ -54,6 +57,14 @@ Route::middleware('auth:admin')->group(function () {
             Route::get('detail', [CategorySurveyController::class, 'detail'])->name('detail');
         });
 
+        Route::prefix('denomination')->name('cluster.')->group(function () {
+            Route::get('type/{type}', [ClusterController::class, 'index'])->name('type');
+            Route::post('type/{type}', [ClusterController::class, 'store'])->name('store');
+            Route::get('update-status', [ClusterController::class, 'update_status'])->name('update_status');
+            Route::get('delete', [ClusterController::class, 'delete'])->name('delete');
+            Route::get('detail', [ClusterController::class, 'detail'])->name('detail');
+        });
+
         Route::prefix('surveys')->name('survey.')->group(function () {
             Route::get('/', [SurveyController::class, 'index'])->name('page');
             Route::post('/', [SurveyController::class, 'store'])->name('store');
@@ -66,8 +77,21 @@ Route::middleware('auth:admin')->group(function () {
         Route::prefix('agendas')->name('agenda.')->group(function () {
             Route::get('/', [AgendaController::class, 'index'])->name('page');
             Route::post('/', [AgendaController::class, 'store'])->name('store');
-            // Route::get('delete', [CategorySurveyController::class, 'delete'])->name('delete');
-            // Route::get('detail', [CategorySurveyController::class, 'detail'])->name('detail');
+        });
+
+        Route::prefix('blogs')->name('blog.')->group(function () {
+            Route::get('/', [BlogController::class, 'index'])->name('page');
+            Route::get('create', [BlogController::class, 'create'])->name('create');
+            Route::post('/', [BlogController::class, 'store'])->name('store');
+            Route::get('edit/{code}', [BlogController::class, 'edit'])->name('edit');
+            Route::get('detail/{code}', [BlogController::class, 'detail'])->name('detail');
+            Route::get('delete', [BlogController::class, 'delete'])->name('delete');
+        });
+
+        Route::prefix('galleries')->name('gallery.')->group(function () {
+            Route::get('/', [GalleryController::class, 'index'])->name('page');
+            Route::post('/', [GalleryController::class, 'store'])->name('store');
+            Route::get('more/{code}', [GalleryController::class, 'more'])->name('more');
         });
     });
 });
