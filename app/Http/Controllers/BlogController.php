@@ -43,7 +43,7 @@ class BlogController extends Controller
                     <div class="m-widget3__item mb-0">
                         <div class="m-widget3__header">
                             <div class="m-widget3__user-img mb-0">
-                                <img class="m-widget3__img" src="' . $file . '" alt="">
+                                <img class="m-widget3__img rounded" src="' . $file . '" alt="">
                             </div>
                             <div class="m-widget3__info">
                                 <span class="m-widget3__username">

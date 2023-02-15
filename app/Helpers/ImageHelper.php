@@ -23,6 +23,23 @@ class ImageHelper
         return $data;
     }
 
+    public static function upload_asset_drive($request, $name, $path, $data)
+    {
+        // $asset = ImageHelper::upload_asset($request, $name, $path, $data);
+        $file = $request->file($name);
+        $profileImage = date('YmdHis') . "." . $file->getClientOriginalExtension();
+        // $resolusi = explode('|', env('SETTING_RESOLUTION'));
+        $thumb = Image::make($file->getRealPath())->resize(100, 100, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $destination = public_path($path);
+        Helper::check_and_make_dir($destination);
+        $thumb->save($destination . '/' . $profileImage);
+        $data[$name] = $path . '/' . $profileImage;
+        Gdrive::put($data[$name], $file);
+        return $data;
+    }
+
     public static function upload_file($request, $name, $path, $data)
     {
         $file = $request->file($name);
@@ -43,6 +60,7 @@ class ImageHelper
         File::delete($asset[$name]);
         return $asset;
     }
+
 
     public static function show_drive($image)
     {

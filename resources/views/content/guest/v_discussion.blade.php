@@ -2,9 +2,10 @@
 @section('content')
     @push('styles')
         <style>
-            .hero-section{
+            .hero-section {
                 height: auto !important;
             }
+
             .container.p-5.bg-light {
                 margin-top: 120px;
             }
@@ -33,7 +34,6 @@
                     </g>
                 </g>
             </svg>
-
         </div>
 
         <div class="container p-5 bg-light rounded">

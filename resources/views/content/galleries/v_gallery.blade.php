@@ -68,10 +68,10 @@
                                                 </label>
                                             </div>
                                         </th>
-                                        <th>Nama Kategori</th>
-                                        <th>Jumlah Gambar</th>
+                                        <th>Nama Gambar</th>
+                                        <th>Pembuat</th>
+                                        <th>Tanggal</th>
                                         <th>Status</th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                             </table>
@@ -98,6 +98,7 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <input type="hidden" name="id" id="id_gallery">
+                                    <input type="hidden" name="id_category_other" value="{{ $category['id'] }}">
                                     <div class="form-group">
                                         <label>Nama</label>
                                         <input type="text" class="form-control m-input" id="name" name="name"
@@ -130,7 +131,7 @@
     @endpush
     @push('scripts')
         @include('package.datatables.datatable_js')
-        @include('component.formSubmit')
+        @include('component.formImageSubmit')
         <script>
             $(function() {
                 $.ajaxSetup({
@@ -158,21 +159,18 @@
                         data: 'name',
                         name: 'name',
                     }, {
-                        data: 'total',
-                        name: 'total',
+                        data: 'author',
+                        name: 'author',
+                    }, {
+                        data: 'date',
+                        name: 'date',
                     }, {
                         data: 'status',
                         name: 'status',
-                    }, {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-center align-middle'
                     }, ]
                 });
 
-                formSubmit('#formSubmit', '#btnSubmit', '', '#modalForm')
+                formImageSubmit('#formSubmit', '#btnSubmit', '{{ route('admin.gallery.store') }}', '#modalForm')
 
                 $(document).on('click', '.update_status', function() {
                     let id = $(this).data('id');

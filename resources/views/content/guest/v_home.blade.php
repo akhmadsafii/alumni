@@ -16,6 +16,24 @@
                 position: relative;
                 top: 13px;
             }
+
+            .img-blog {
+                background-size: 100%;
+                background-position: center center;
+                background-repeat: no-repeat;
+                height: 150px;
+                width: 100%;
+                transition: background ease-out 200ms;
+            }
+
+            .img-agenda {
+                background-size: 100%;
+                background-position: center center;
+                background-repeat: no-repeat;
+                height: 135px;
+                width: 100%;
+                transition: background ease-out 200ms;
+            }
         </style>
     @endpush
     <section class="hero-section" id="hero">
@@ -116,89 +134,48 @@
                     <span class="line">
                         <h2><span class="py-2 pe-2">Blog</span></h2>
                     </span>
-                    <p class="mt-3">Berita dan Artikel tentang SMA N 1 Indonesia</p>
+                    <p class="mt-3"><a href="" class="text-primary">Lihat semua Berita dan Artikel</a></p>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="card mb-3">
-                                <img src="..." class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the
-                                        bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                        @foreach ($blogs as $blog)
+                            <div class="col-md-6">
+                                <div class="card mb-3 p-1">
+                                    <div class="card-img-top img-blog"
+                                        style="background-image: url('{{ $blog['file'] != null ? asset($blog['file']) : asset('asset/img/no_image.jpeg') }}')">
+                                    </div>
+                                    <div class="card-body" style="min-height: 200px;">
+                                        <h5 class="card-title mb-0">{{ $blog['title'] }}</h5>
+                                        <small>{{ $blog['created_at']->diffForHumans() }}</small>
+                                        <p class="card-text mt-2">{!! Str::limit($blog['content'], 200) !!}</p>
+                                        <a href="#">Read Post</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card mb-3">
-                                <img src="..." class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the
-                                        bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card mb-3">
-                                <img src="..." class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the
-                                        bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card mb-3">
-                                <img src="..." class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the
-                                        bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-md-6">
                     <span class="line">
                         <h2><span class="py-2 pe-2">Agenda</span></h2>
                     </span>
-                    <p class="mt-3">Agenda yang akan dilaksanakan dalam bulan ini</p>
-                    <div class="card mb-3">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="..." class="img-fluid rounded-start" alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural
-                                        lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <p class="mt-3"><a href="" class="text-primary">Lihat semua Agenda dalam bulan ini</a></p>
+                    @foreach ($agendas as $agenda)
+                        <div class="card mb-3 p-1">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <div class="img-fluid rounded-start img-agenda"
+                                        style="background-image: url('{{ $agenda['file'] != null ? asset($agenda['file']) : asset('asset/img/no_image.jpeg') }}')">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-0">{{ $agenda['title'] }}</h5>
+                                        <small>Waktu : {{ DateHelper::getTanggal($agenda['start_date']) }}</small>
+                                        <p class="card-text mt-2">{!! Str::limit($agenda['description'], 80) !!}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card mb-3">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="..." class="img-fluid rounded-start" alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural
-                                        lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
 

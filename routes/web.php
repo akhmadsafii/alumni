@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategorySurveyController;
 use App\Http\Controllers\ClusterController;
+use App\Http\Controllers\CommentDiscussionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\GalleryController;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [GuestController::class, 'index'])->name('first_page');
 Route::get('discussion', [GuestController::class, 'discussion'])->name('discussion');
+Route::get('alumni', [GuestController::class, 'alumni'])->name('alumni');
 
 Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('login', [AuthController::class, 'login'])->name('login');
@@ -49,6 +51,14 @@ Route::middleware('auth:admin')->group(function () {
 
         Route::prefix('discussions')->name('discussion.')->group(function () {
             Route::get('/', [DiscussionController::class, 'index'])->name('page');
+            Route::post('/', [DiscussionController::class, 'store'])->name('store');
+            Route::post('update', [DiscussionController::class, 'update'])->name('update');
+            Route::get('delete', [DiscussionController::class, 'delete'])->name('delete');
+            Route::get('detail', [DiscussionController::class, 'detail'])->name('detail');
+        });
+
+        Route::prefix('comments')->name('comment.')->group(function () {
+            Route::post('/', [CommentDiscussionController::class, 'store'])->name('store');
         });
 
         Route::prefix('categories')->name('category.')->group(function () {
@@ -77,6 +87,7 @@ Route::middleware('auth:admin')->group(function () {
         Route::prefix('agendas')->name('agenda.')->group(function () {
             Route::get('/', [AgendaController::class, 'index'])->name('page');
             Route::post('/', [AgendaController::class, 'store'])->name('store');
+            Route::get('detail', [AgendaController::class, 'detail'])->name('detail');
         });
 
         Route::prefix('blogs')->name('blog.')->group(function () {
@@ -92,6 +103,7 @@ Route::middleware('auth:admin')->group(function () {
             Route::get('/', [GalleryController::class, 'index'])->name('page');
             Route::post('/', [GalleryController::class, 'store'])->name('store');
             Route::get('more/{code}', [GalleryController::class, 'more'])->name('more');
+            Route::get('download/{code}', [GalleryController::class, 'download'])->name('download');
         });
     });
 });

@@ -230,17 +230,23 @@
 
             function editData(id) {
                 $.ajax({
-                    url: '{{ route('admin.manage.detail') }}',
+                    url: '{{ route('admin.agenda.detail') }}',
                     data: {
                         id
                     },
                     success: (data) => {
                         $('.modal-title').html('Edit {{ session('title') }}');
-                        $('#id_admin').val(data.id);
-                        $('#name').val(data.name);
-                        $('#email').val(data.email);
-                        $('#phone').val(data.phone);
-                        $('#preview-image').attr('src', data.avatar);
+                        $('#id_agenda').val(data.id);
+                        $('#title').val(data.title);
+                        $('#location').val(data.location);
+                        $('#start_date').val(data.start_date);
+                        $('#end_date').val(data.end_date);
+                        $('#description').val(data.description);
+                        if (data.file) {
+                            $('#preview-image').attr('src', data.file);
+                        }else{
+                            $('#preview-image').attr('src', 'https://via.placeholder.com/150');
+                        }
                         $('#modalForm').modal('show');
                     }
                 });

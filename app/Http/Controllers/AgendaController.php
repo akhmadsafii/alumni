@@ -27,8 +27,8 @@ class AgendaController extends Controller
                             <i class="la la-ellipsis-h"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="javascript:void(0)" onclick="editData(' . $row['id'] . ')"><i class="la la-edit"></i> Detail</a>
-                            <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Edit</a>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="detailData(' . $row['id'] . ')"><i class="la la-info-circle"></i> Detail</a>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="editData(' . $row['id'] . ')"><i class="la la-edit"></i> Edit</a>
                             <a class="dropdown-item" href="javascript:void(0)" onclick="deleteData(' . $row['id'] . ')"><i class="la la-trash"></i> Hapus</a>
                         </div>
                     </span>';
@@ -40,7 +40,7 @@ class AgendaController extends Controller
                     <div class="m-widget3__item mb-0">
                         <div class="m-widget3__header">
                             <div class="m-widget3__user-img mb-0">
-                                <img class="m-widget3__img" src="' . $file . '" alt="">
+                                <img class="m-widget3__img rounded" src="' . $file . '" alt="">
                             </div>
                             <div class="m-widget3__info">
                                 <span class="m-widget3__username">
@@ -76,6 +76,7 @@ class AgendaController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
         $customAttributes = [
             'title' => 'Judul Agenda',
         ];
@@ -119,5 +120,12 @@ class AgendaController extends Controller
                 'status' => true,
             ], 200);
         }
+    }
+
+    public function detail(Request $request)
+    {
+        // dd($request);
+        $agenda = Agenda::find($request['id']);
+        return response()->json($agenda);
     }
 }
