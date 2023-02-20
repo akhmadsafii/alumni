@@ -14,11 +14,15 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\User\SurveyController as UserSurveyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [GuestController::class, 'index'])->name('first_page');
 Route::get('discussion', [GuestController::class, 'discussion'])->name('discussion');
 Route::get('alumni', [GuestController::class, 'alumni'])->name('alumni');
+Route::get('agenda', [GuestController::class, 'agenda'])->name('agenda');
+Route::get('survey', [UserSurveyController::class, 'category'])->name('survey.category');
+Route::get('category/{category}', [UserSurveyController::class, 'survey'])->name('survey.survey');
 
 Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('login', [AuthController::class, 'login'])->name('login');

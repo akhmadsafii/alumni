@@ -11,8 +11,8 @@
             <li><a class="active" href="{{ route('first_page') }}">Beranda</a></li>
             <li><a href="{{ route('discussion') }}">Diskusi</a></li>
             <li><a href="{{ route('alumni') }}">Alumni</a></li>
-            <li><a href="blog.html">Agenda</a></li>
-            <li><a href="contact.html">Survey</a></li>
+            <li><a href="{{ route('agenda') }}">Agenda</a></li>
+            <li><a href="{{ route('survey.category') }}">Survey</a></li>
             <li><a href="contact.html">Blog</a></li>
             <li><a href="contact.html">Galeri</a></li>
         </ul>

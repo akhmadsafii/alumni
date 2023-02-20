@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Agenda;
 use App\Models\Blog;
+use App\Models\CategorySurvey;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GuestController extends Controller
 {
@@ -23,5 +26,21 @@ class GuestController extends Controller
     public function alumni()
     {
         return view('content.guest.v_alumni');
+    }
+
+    public function agenda()
+    {
+        $agendas = DB::table('agendas')
+            ->select('agendas.*', 'users.name as name_user', 'admins.name as name_admin')
+            ->leftJoin('admins', function ($join) {
+                $join->on('admins.id', '=', 'agendas.id_user')
+                    ->where('agendas.role', '=', 'admin');
+            })
+            ->leftJoin('users', function ($join) {
+                $join->on('users.id', '=', 'agendas.id_user')
+                    ->where('agendas.role', '=', 'user');
+            })
+            ->paginate(3);
+        return view('content.guest.v_agenda', compact('agendas'));
     }
 }
