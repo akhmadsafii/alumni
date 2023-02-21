@@ -95,27 +95,22 @@
                     </div>
                     <form id="formSubmit">
                         <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <input type="hidden" name="id" id="id_gallery">
-                                    <input type="hidden" name="id_category_other" value="{{ $category['id'] }}">
-                                    <div class="form-group">
-                                        <label>Nama</label>
-                                        <input type="text" class="form-control m-input" id="name" name="name"
-                                            placeholder="Nama Kategori">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Gambar</label>
-                                        <input type="file" name="file" class="form-control-file"
-                                            onchange="readURL(this);">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <img id="preview-image" src="https://via.placeholder.com/150" alt="Preview" class="w-100">
-                                </div>
+                            <input type="hidden" name="id" id="id_gallery">
+                            <input type="hidden" name="id_category_other" value="{{ $category['id'] }}">
+                            <div class="form-group">
+                                <label>Nama</label>
+                                <input type="text" class="form-control m-input" id="name" name="name"
+                                    placeholder="Nama Kategori">
                             </div>
                             <div class="form-group">
-                                <label>Keterangan</label>
+                                <label>Gambar</label>
+                                <div id="multiple_image" class="row">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Deskripsi</label>
                                 <textarea name="description" id="description" rows="3" class="form-control"></textarea>
                             </div>
 
@@ -131,6 +126,7 @@
     @endpush
     @push('scripts')
         @include('package.datatables.datatable_js')
+        @include('package.uploadImage.multiupload_js')
         @include('component.formImageSubmit')
         <script>
             $(function() {
@@ -185,6 +181,23 @@
                             console.log(data)
                         }
                     });
+                });
+
+                $("#multiple_image").spartanMultiImagePicker({
+                    fieldName: 'file[]',
+                    maxCount: 10,
+                    rowHeight: '200px',
+                    groupClassName: 'col-md-6 col-sm-6 col-xs-12',
+                    maxFileSize: '',
+                    dropFileLabel: "Drop Here",
+                    onExtensionErr: function(index, file) {
+                        console.log(index, file, 'extension err');
+                        alert('Please only input png or jpg type file')
+                    },
+                    onSizeErr: function(index, file) {
+                        console.log(index, file, 'file size too big');
+                        alert('File size too big');
+                    }
                 });
 
             })

@@ -68,4 +68,18 @@ class ImageHelper
         return response($data->file, 200)
             ->header('Content-Type', $data->ext);
     }
+
+    public static function upload_multiple_asset_drive($file, $path)
+    {
+        $profileImage = date('YmdHis') . Helper::str_random(5) . "." . $file->getClientOriginalExtension();
+        $thumb = Image::make($file->getRealPath())->resize(100, 100, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $destination = public_path($path);
+        Helper::check_and_make_dir($destination);
+        $thumb->save($destination . '/' . $profileImage);
+        $data = $path . '/' . $profileImage;
+        Gdrive::put($data, $file);
+        return $data;
+    }
 }

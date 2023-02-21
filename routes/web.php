@@ -14,6 +14,7 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\User\BlogController as UserBlogController;
 use App\Http\Controllers\User\SurveyController as UserSurveyController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,7 @@ Route::get('alumni', [GuestController::class, 'alumni'])->name('alumni');
 Route::get('agenda', [GuestController::class, 'agenda'])->name('agenda');
 Route::get('survey', [UserSurveyController::class, 'category'])->name('survey.category');
 Route::get('category/{category}', [UserSurveyController::class, 'survey'])->name('survey.survey');
+Route::get('blog', [UserBlogController::class, 'index'])->name('public.blog');
 
 Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('login', [AuthController::class, 'login'])->name('login');

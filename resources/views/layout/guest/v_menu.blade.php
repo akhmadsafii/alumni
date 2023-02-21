@@ -13,7 +13,7 @@
             <li><a href="{{ route('alumni') }}">Alumni</a></li>
             <li><a href="{{ route('agenda') }}">Agenda</a></li>
             <li><a href="{{ route('survey.category') }}">Survey</a></li>
-            <li><a href="contact.html">Blog</a></li>
+            <li><a href="{{ route('public.blog') }}">Blog</a></li>
             <li><a href="contact.html">Galeri</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>

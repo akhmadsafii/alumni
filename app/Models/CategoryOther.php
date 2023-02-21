@@ -12,4 +12,9 @@ class CategoryOther extends Model
     protected $table = 'category_others';
 
     protected $guarded = [];
+
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class, 'id_category_other', 'id')->where('status', '!=', 0);
+    }
 }

@@ -16,12 +16,11 @@ return new class extends Migration
         Schema::create('galleries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('code')->nullable();
-            $table->integer('id_category_other');
             $table->string('role')->nullable();
             $table->integer('id_user');
             $table->string('name');
             $table->longText('description')->nullable();
-            $table->string('file')->nullable();
+            $table->json('file')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });

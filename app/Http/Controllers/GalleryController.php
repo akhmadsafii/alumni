@@ -171,8 +171,13 @@ class GalleryController extends Controller
             ], 302);
         } else {
             $data = $request->toArray();
-            if (!empty($request->file)) {
-                $data = ImageHelper::upload_asset_drive($request, 'file', 'profile', $data);
+            $multiple_image = [];
+            if ($request->hasFile('file')) {
+                foreach ($request->file as $key => $photo) {
+                    $path = ImageHelper::upload_multiple_asset_drive($photo, 'product');
+                    array_push($multiple_image, $path);
+                }
+                $data['file'] = json_encode($multiple_image);
             }
             $data['id_user'] = session('id');
             $data['role'] = session('role');
