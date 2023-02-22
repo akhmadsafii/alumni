@@ -8,7 +8,7 @@
             }
 
             .main-content {
-                margin-top: -550px;
+                margin-top: -700px;
             }
 
             @media only screen and (max-width: 480px) {
