@@ -31,7 +31,7 @@ class AuthController extends Controller
             return response()->json([
                 'message' =>  'Login sebagai Pengguna berhasil',
                 'status' =>  true,
-                'target_url' =>  route('user.dashboard'),
+                'target_url' =>  route('first_page'),
             ]);
         }
 

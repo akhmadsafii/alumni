@@ -1,14 +1,19 @@
 @extends('layout.guest.v_main')
 @section('content')
     @push('styles')
-        @include('package.fullcalendar.fullcalendar_css')
         <style>
             .container-fluid {
                 z-index: 3;
             }
 
             .main-content {
-                margin-top: -550px;
+                margin-top: -350px;
+            }
+
+            .hero-section,
+            .hero-section>.container>.row {
+                height: 65vh !important;
+                min-height: 420px !important;
             }
 
             @media only screen and (max-width: 480px) {
@@ -44,89 +49,22 @@
     </section>
     <div class="container-fluid position-relative">
         <div class="main-content p-5 bg-transparent rounded" style="">
-            <div class="bg-transparent">
-                <div class="text-center">
-                    <h2 class="mt-3 text-white">Agenda</h2>
-                    <p class="mt-3 text-white">kegiatan yang masih dilakukan oleh para alumni guna mempererat tali
-                        silahturahmi
-                    </p>
-                </div>
-            </div>
             <div class="row">
-                <div class="col-md-8">
-                    <div class="card mb-2 p-2">
-                        <nav class="nav">
-                            <a class="nav-link active" aria-current="page" href="#">Semua</a>
-                            <a class="nav-link" href="#">Belum Terlaksana</a>
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Sudah
-                                Terlaksana</a>
-                        </nav>
-                    </div>
+                <div class="col-md-12">
                     <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between my-2">
-                                <form class="row gy-2 gx-3 align-items-center">
-                                    <div class="col-auto">
-                                        <label class="visually-hidden" for="autoSizingInput">Name</label>
-                                        <input type="text" class="form-control" id="autoSizingInput"
-                                            placeholder="Cari disini">
-                                    </div>
-                                </form>
-                                <button class="btn btn-sm btn-primary"><i class="bi bi-plus-circle"></i> Tambah Agenda</button>
-                            </div>
-                            <hr>
-                            @foreach ($agendas as $agenda)
-                                <div class="card mb-3">
-                                    <div class="row g-0">
-                                        <div class="col-md-4 my-auto">
-                                            <img src="{{ $agenda->file != null ? asset($agenda->file) : asset('asset/img/no_image.jpeg') }}"
-                                                class="img-fluid rounded-start">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <h5 class="card-title">{{ $agenda->title }}
-                                                </h5>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item"><span><i class="bi bi-pin-map"></i>
-                                                            {{ $agenda->location }}</span>
-                                                    </li>
-                                                    <li class="list-group-item"><span><i class="bi bi-clock"></i>
-                                                            {{ DateHelper::getHoursMinute($agenda->start_date) }}</span>
-                                                    </li>
-                                                    <li class="list-group-item"><span><i class="bi bi-info-circle"></i>
-                                                            {!! Str::limit($agenda->description, 100) !!}</span></li>
-                                                </ul>
-                                                <p class="card-text"><small class="text-muted">Dibuat oleh
-                                                        {{ $agenda->role == 'user' ? $agenda->name_user : $agenda->name_admin }}
-                                                        &nbsp; &#x2022; &nbsp;
-                                                        {{ DateHelper::timeHuman($agenda->created_at) }}</small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                            <div class="d-flex justify-content-center">
-                                {{ $agendas->links() }}
-                            </div>
+                        <div class="card-body text-center" style="min-height: 200px !important">
+                            <i class="bi bi-x-circle text-danger" style="font-size:60px;"></i>
+                            <h4>Akses ditolak!</h4>
+                            <p class="mr-t-10 mb-0">Anda tidak memiliki izin mengakses Halaman ini.</p>
+                            <p class="mt-0 mr-b-20">Untuk dapat mengakses. silahkan lakukan login terlebih dahulu.
+                            </p>
+                            <a href="{{ route('auth.login') }}" class="btn btn-primary btn-lg btn-rounded mr-b-20 mx-1 ripple"><i
+                                    class="bi bi-box-arrow-in-right"></i> Login Aplikasi</a>
                         </div>
                     </div>
 
                 </div>
-                <div class="col-md-4">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <div id="calendar"></div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="my-0 text-center">Agenda Saya</h3>
-                        </div>
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
         </div>

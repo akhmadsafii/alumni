@@ -25,6 +25,7 @@ Route::get('agenda', [GuestController::class, 'agenda'])->name('agenda');
 Route::get('survey', [UserSurveyController::class, 'category'])->name('survey.category');
 Route::get('category/{category}', [UserSurveyController::class, 'survey'])->name('survey.survey');
 Route::get('blog', [UserBlogController::class, 'index'])->name('public.blog');
+Route::get('login', [GuestController::class, 'login'])->name('public.login');
 
 Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('login', [AuthController::class, 'login'])->name('login');

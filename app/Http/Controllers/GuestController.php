@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\CategorySurvey;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class GuestController extends Controller
@@ -18,9 +19,18 @@ class GuestController extends Controller
         // dd($agendas);
         return view('content.guest.v_home', compact('blogs', 'agendas'));
     }
+
+    public function login()
+    {
+        return view('content.guest.v_login');
+    }
+
     public function discussion()
     {
-        return view('content.guest.v_discussion');
+        if (Auth::guard('user')->check()) {
+            return view('content.guest.v_discussion');
+        }
+        return view('content.guest.v_login');
     }
 
     public function alumni()

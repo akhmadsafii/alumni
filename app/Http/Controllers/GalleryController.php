@@ -149,10 +149,10 @@ class GalleryController extends Controller
             'name' => 'Nama Admin',
         ];
 
-        $max_size = 'max:' . env('CONFIG_MAX_UPLOAD');
-        $mimes = 'mimes:' . str_replace('|', ',', env('CONFIG_FORMAT_IMAGE'));
+        // $max_size = 'max:' . env('CONFIG_MAX_UPLOAD');
+        // $mimes = 'mimes:' . str_replace('|', ',', env('CONFIG_FORMAT_IMAGE'));
         $rules = [
-            'file' => ['image', $mimes, $max_size],
+            // 'file' => ['image', $mimes, $max_size],
             'name' => ['required', "regex:/^[a-zA-Z .,']+$/"],
         ];
 
@@ -182,6 +182,7 @@ class GalleryController extends Controller
             $data['id_user'] = session('id');
             $data['role'] = session('role');
             $data['code'] = str_slug($data['name']) . '-' . Helper::str_random(5);
+            // dd($data);
             Gallery::updateOrCreate(
                 ['id' => $request->id],
                 $data
