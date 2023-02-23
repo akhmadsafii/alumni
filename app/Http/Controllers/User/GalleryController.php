@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Gallery;
 use Illuminate\Http\Request;
 
 class GalleryController extends Controller
 {
-    public function category()
+    public function index()
     {
-        $categories =  CategorySurvey::withCount('surveys')->paginate(12);
-        return view('content.guest.surveys.v_category', compact('categories'));
+        $galleries =  Gallery::where([
+            ['publish', 1],
+            ['status', '!=', 0]
+        ])->get();
+        // dd($galleries);
+        return view('content.guest.galleries.v_gallery', compact('galleries'));
     }
 }

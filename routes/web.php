@@ -15,6 +15,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\User\BlogController as UserBlogController;
+use App\Http\Controllers\User\GalleryController as UserGalleryController;
 use App\Http\Controllers\User\SurveyController as UserSurveyController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,13 @@ Route::get('agenda', [GuestController::class, 'agenda'])->name('agenda');
 Route::get('survey', [UserSurveyController::class, 'category'])->name('survey.category');
 Route::get('category/{category}', [UserSurveyController::class, 'survey'])->name('survey.survey');
 Route::get('blog', [UserBlogController::class, 'index'])->name('public.blog');
-Route::get('login', [GuestController::class, 'login'])->name('public.login');
+Route::prefix('galleries')->name('gallery.')->group(function () {
+    Route::get('/', [UserGalleryController::class, 'index'])->name('public');
+    // Route::post('/', [AdminController::class, 'store'])->name('store');
+    // Route::get('detail', [AdminController::class, 'detail'])->name('detail');
+    // Route::get('delete', [AdminController::class, 'delete'])->name('delete');
+});
+// Route::get('gallery', [UserGalleryController::class, 'index'])->name('public.gallery');
 
 Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('login', [AuthController::class, 'login'])->name('login');
@@ -109,7 +116,7 @@ Route::middleware('auth:admin')->group(function () {
         Route::prefix('galleries')->name('gallery.')->group(function () {
             Route::get('/', [GalleryController::class, 'index'])->name('page');
             Route::post('/', [GalleryController::class, 'store'])->name('store');
-            Route::get('more/{code}', [GalleryController::class, 'more'])->name('more');
+            Route::get('load-image', [GalleryController::class, 'load_image'])->name('load_image');
             Route::get('download/{code}', [GalleryController::class, 'download'])->name('download');
         });
     });

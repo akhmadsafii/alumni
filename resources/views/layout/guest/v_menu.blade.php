@@ -14,7 +14,7 @@
             <li><a href="{{ route('agenda') }}">Agenda</a></li>
             <li><a href="{{ route('survey.category') }}">Survey</a></li>
             <li><a href="{{ route('public.blog') }}">Blog</a></li>
-            <li><a href="contact.html">Galeri</a></li>
+            <li><a href="{{ route('gallery.public') }}">Galeri</a></li>
             @if (Auth::guard('user')->check())
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -35,7 +35,8 @@
                                     </div>
                                     <div class="col-lg-8">
                                         <p class="text-left my-0">
-                                            <strong>{{ Auth::guard('user')->user()->name }}</strong></p>
+                                            <strong>{{ Auth::guard('user')->user()->name }}</strong>
+                                        </p>
                                         <p class="text-left small">{{ Auth::guard('user')->user()->email }}</p>
                                     </div>
                                 </div>
