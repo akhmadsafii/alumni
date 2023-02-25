@@ -28,7 +28,7 @@ Route::get('category/{category}', [UserSurveyController::class, 'survey'])->name
 Route::get('blog', [UserBlogController::class, 'index'])->name('public.blog');
 Route::prefix('galleries')->name('gallery.')->group(function () {
     Route::get('/', [UserGalleryController::class, 'index'])->name('public');
-    // Route::post('/', [AdminController::class, 'store'])->name('store');
+    Route::get('detail/{title}', [UserGalleryController::class, 'detail'])->name('detail');
     // Route::get('detail', [AdminController::class, 'detail'])->name('detail');
     // Route::get('delete', [AdminController::class, 'delete'])->name('delete');
 });

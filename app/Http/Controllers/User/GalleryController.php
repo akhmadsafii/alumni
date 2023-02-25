@@ -5,16 +5,33 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GalleryController extends Controller
 {
     public function index()
     {
-        $galleries =  Gallery::where([
-            ['publish', 1],
-            ['status', '!=', 0]
-        ])->get();
-        // dd($galleries);
+        $galleries = DB::table('galleries')
+            ->where('galleries.publish', '=', 1)
+            ->select('galleries.*', 'users.name as name_user', 'users.file as file_user', 'admins.name as name_admin', 'admins.file as file_admin')
+            ->leftJoin('admins', function ($join) {
+                $join->on('admins.id', '=', 'galleries.id_user')
+                    ->where('galleries.role', '=', 'admin');
+            })
+            ->leftJoin('users', function ($join) {
+                $join->on('users.id', '=', 'galleries.id_user')
+                    ->where('galleries.role', '=', 'user');
+            })
+            // ->get();
+            ->paginate(3);
         return view('content.guest.galleries.v_gallery', compact('galleries'));
+    }
+
+    public function detail($title)
+    {
+        // dd($title);
+        $gallery = Gallery::where('code', $title)->first();
+        // dd($gallery);
+        return view('content.guest.galleries.v_preview', compact('gallery'));
     }
 }
