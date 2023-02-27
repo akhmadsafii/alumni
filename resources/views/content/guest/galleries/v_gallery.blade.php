@@ -11,9 +11,9 @@
             }
 
             /* .my-card {
-                                                        position: absolute;
-                                                        top: -20px;
-                                                    } */
+                                                                                position: absolute;
+                                                                                top: -20px;
+                                                                            } */
 
             @media only screen and (max-width: 480px) {
                 .container.p-5.bg-light {
@@ -26,6 +26,83 @@
                 .main-content {
                     margin-top: -880px !important;
                 }
+            }
+
+
+
+            /* DEMO GENERAL ============================== */
+            .hover {
+                overflow: hidden;
+                position: relative;
+                padding-bottom: 60%;
+            }
+
+            .hover-overlay {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 90;
+                transition: all 0.4s;
+            }
+
+            .hover img {
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                transition: all 0.3s;
+            }
+
+            .hover-content {
+                position: relative;
+                z-index: 99;
+            }
+
+
+            /* DEMO 1 ============================== */
+            .hover-1 img {
+                width: 105%;
+                position: absolute;
+                top: 0;
+                left: -5%;
+                transition: all 0.3s;
+            }
+
+            .hover-1-content {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                z-index: 99;
+                transition: all 0.4s;
+            }
+
+            .hover-1 .hover-overlay {
+                background: rgba(0, 0, 0, 0.5);
+            }
+
+            .hover-1-description {
+                transform: translateY(0.5rem);
+                transition: all 0.4s;
+                opacity: 0;
+            }
+
+            .hover-1:hover .hover-1-content {
+                bottom: 2rem;
+            }
+
+            .hover-1:hover .hover-1-description {
+                opacity: 1;
+                transform: none;
+            }
+
+            .hover-1:hover img {
+                left: 0;
+            }
+
+            .hover-1:hover .hover-overlay {
+                opacity: 0;
             }
         </style>
     @endpush
@@ -88,6 +165,30 @@
                         $image = asset(reset($image));
                     @endphp
                     <div class="col-lg-3 col-md-4 col-6">
+                        <div class="hover hover-1 text-white rounded"><img
+                                src="https://bootstrapious.com/i/snippets/sn-img-hover/hoverSet-3.jpg" alt="">
+                            <div class="hover-overlay"></div>
+                            <div class="hover-1-content px-5 pt-4">
+                                <h3 class="hover-1-title text-uppercase font-weight-bold mb-0"> <span
+                                        class="font-weight-light">Image </span>Caption</h3>
+                                <p class="hover-1-description font-weight-light mb-0">Lorem ipsum dolor sit amet,
+                                    consectetur adipisicing elit.</p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center my-2">
+                            <div class="d-flex justify-content-start align-items-center">
+                                <a href="#!">
+                                    <img src="{{ $avatar }}" alt="avatar" class="img-fluid rounded-circle me-3"
+                                        width="35">
+                                </a>
+                                <p class="my-0"><strong>{{ $user }}</strong></p>
+                            </div>
+                            <span>
+                                <i class="bi bi-eye-fill"></i> 200
+                            </span>
+                        </div>
+                    </div>
+                    {{-- <div class="col-lg-3 col-md-4 col-6">
                         <a href="{{ route('gallery.detail', $gallery->code) }}">
                             <div class="card">
                                 <img class="img-fluid rounded w-100" src="{{ $image }}" alt="">
@@ -109,7 +210,7 @@
                                 </div>
                             </div>
                         </a>
-                    </div>
+                    </div> --}}
                 @endforeach
             </div>
         </div>
