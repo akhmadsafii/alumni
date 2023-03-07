@@ -12,4 +12,14 @@ class CommentDiscussion extends Model
     protected $table = 'comment_discussions';
 
     protected $guarded = [];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id');
+    }
+
+    public function admins()
+    {
+        return $this->belongsTo(Admin::class, 'id_user', 'id');
+    }
 }

@@ -5,8 +5,9 @@
                     class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-line-graph"></i><span
                     class="m-menu__link-text">Dashboard</span></a></li>
         <li class="m-menu__item " aria-haspopup="true">
-            <a href="{{ route('admin.discussion.page') }}" class="m-menu__link "><span class="m-menu__item-here"></span><i
-                    class="m-menu__link-icon flaticon-chat-1"></i><span class="m-menu__link-text">Diskusi</span></a>
+            <a href="{{ route('admin.discussion.page') }}" class="m-menu__link "><span
+                    class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-chat-1"></i><span
+                    class="m-menu__link-text">Diskusi</span></a>
         </li>
         <li class="m-menu__item " aria-haspopup="true">
             <a href="{{ route('admin.survey.page') }}" class="m-menu__link "><span class="m-menu__item-here"></span><i
@@ -33,14 +34,18 @@
                     <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span class="m-menu__link"><span
                                 class="m-menu__item-here"></span><span class="m-menu__link-text">Resources</span></span>
                     </li>
-                    <li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="{{ route('admin.cluster.type', 'job') }}"
-                            class="m-menu__link "><i
+                    <li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a
+                            href="{{ route('admin.cluster.type', 'job') }}" class="m-menu__link "><i
                                 class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
                                 class="m-menu__link-text">Jenis Pekerjaan</span></a></li>
                     <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1"><a
                             href="{{ route('admin.cluster.type', 'blog') }}" class="m-menu__link "><i
                                 class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
                                 class="m-menu__link-text">Kategori Blog</span></a></li>
+                    <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1"><a
+                            href="{{ route('admin.major.page') }}" class="m-menu__link "><i
+                                class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+                                class="m-menu__link-text">Jurusan</span></a></li>
                     <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1"><a
                             href="{{ route('admin.cluster.type', 'gallery') }}" class="m-menu__link "><i
                                 class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
@@ -58,11 +63,12 @@
                     class="m-menu__link-text">User</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
             <div class="m-menu__submenu "><span class="m-menu__arrow"></span>
                 <ul class="m-menu__subnav">
-                    <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span class="m-menu__link"><span
-                                class="m-menu__item-here"></span><span class="m-menu__link-text">Resources</span></span>
+                    <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span
+                            class="m-menu__link"><span class="m-menu__item-here"></span><span
+                                class="m-menu__link-text">Resources</span></span>
                     </li>
-                    <li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="inner.html"
-                            class="m-menu__link "><i
+                    <li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a
+                            href="{{ route('admin.user.page') }}" class="m-menu__link "><i
                                 class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
                                 class="m-menu__link-text">Siswa</span></a></li>
                     <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1"><a

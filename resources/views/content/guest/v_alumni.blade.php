@@ -2,35 +2,7 @@
 @section('content')
     @push('styles')
         <style>
-            .hero-section {
-                height: auto !important;
-            }
-
-            .container.p-5.bg-light {
-                margin-top: 120px;
-            }
-
-            @media only screen and (max-width: 480px) {
-                .container.p-5.bg-light {
-                    margin-top: 85px !important;
-                    width: auto !important;
-                    margin: 0 10px;
-                    padding: 10px !important;
-                }
-            }
-
-            .custom-search {
-                position: relative;
-            }
-
-            .custom-search-input {
-                width: 100% !important;
-                padding-right: 100px !important;
-                box-sizing: border-box;
-            }
-
             .custom-search-botton {
-                position: absolute !important;
                 right: 3px;
                 top: 3px;
                 bottom: 3px;
@@ -49,10 +21,8 @@
             }
         </style>
     @endpush
-    <section class="hero-section" id="hero">
-
+    <section class="hero-section inner-page">
         <div class="wave">
-
             <svg width="100%" height="355px" viewBox="0 0 1920 355" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -63,42 +33,56 @@
                     </g>
                 </g>
             </svg>
-
         </div>
-        <div class="container h-80">
-            <div class="row align-items-center h-100">
-                <div class="col-8 mx-auto">
-                    <div class="jumbotron text-white">
-                        <center>
-                            <h3 class="text-white">Daftar Alumni</h3>
-                            <p>Semua informasi dari alumni tentang data diri dan kelulusan disajikan disini</p>
-                        </center>
-                        <form action="" method="post">
-                            <div class="input-group custom-search">
-                                <input type="text" class="form-control custom-search-input"
-                                    placeholder="Masukan Pencarian">
-                                <button class="btn btn-primary custom-search-botton" type="submit">Cari</button>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="my-3">
-                                        <label for="">Jurusan</label>
-                                        <select name="id_major" id="id_major" class="form-control">
-                                            <option value="">Pilih Jurusan</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="my-3">
-                                        <label for="">Angkatan</label>
-                                        <select name="id_major" id="id_major" class="form-control">
-                                            <option value="">Pilih Jurusan</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <div class="row justify-content-center">
+                        <div class="col-md-7 text-center hero-text">
+                            <h1 data-aos="fade-up" data-aos-delay="" class="aos-init aos-animate">Daftar Alumni</h1>
+                            <p class="mb-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">Semua informasi
+                                dari alumni tentang data diri dan kelulusan disajikan disini</p>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-8 mx-auto">
+                    <form action="" method="post">
+                        <div class="input-group custom-search position-relative">
+                            <input type="text" class="form-control custom-search-input w-100"
+                                placeholder="Masukan Pencarian">
+                            <button class="btn btn-primary custom-search-botton position-absolute"
+                                type="submit">Cari</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="my-3">
+                                    <label for="">Jurusan</label>
+                                    <select name="id_major" id="id_major" class="form-control">
+                                        <option value="" selected disabled>Pilih Jurusan</option>
+                                        @foreach ($majors as $major)
+                                            <option value="{{ $major['id'] }}">{{ $major['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="my-3">
+                                    <label for="">Angkatan</label>
+                                    <select name="id_major" id="id_major" class="form-control">
+                                        <option value="">Pilih Jurusan</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
 
             </div>

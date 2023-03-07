@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Str;
 
 class GalleryController extends Controller
 {
@@ -25,7 +26,6 @@ class GalleryController extends Controller
                 ->editColumn('name', function ($row) {
                     $file = json_decode($row['file']);
                     $file = asset(reset($file));
-                    // $file = $row['file'] ? asset($row['file']) : asset('asset/img/user4.jpg');
                     return '<div class="m-widget3">
                     <div class="m-widget3__item mb-0">
                         <div class="m-widget3__header">
@@ -39,11 +39,11 @@ class GalleryController extends Controller
                                     ' . $row['name'] . '
                                 </span><br>
                                 <span class="m-widget3__time">
-                                    ' . $row['description'] . '
+                                    ' . Str::limit($row['description'], 70, '...') . '
                                 </span>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>';
                 })
@@ -99,14 +99,6 @@ class GalleryController extends Controller
         }
         return view('content.galleries.v_gallery');
     }
-
-    // public function more(Request $request, $code)
-    // {
-    //     // dd($code);
-    //     session()->put('title', 'Galeri');
-    //     $category = CategoryOther::where('code', $code)->first();
-
-    // }
 
     public function store(Request $request)
     {
@@ -180,5 +172,23 @@ class GalleryController extends Controller
     {
         $image = Gallery::where('code', $code)->first();
         return ImageHelper::show_drive($image['file']);
+    }
+
+    public function update_status(Request $request)
+    {
+        Gallery::where('id', $request->id)->update(['status' => $request->status]);
+        return response()->json([
+            'message' => 'Galleri berhasil diperbarui',
+            'status' => true,
+        ], 200);
+    }
+
+    public function update_publish(Request $request)
+    {
+        Gallery::where('id', $request->id)->update(['publish' => $request->status]);
+        return response()->json([
+            'message' => 'Galleri berhasil diperbarui',
+            'status' => true,
+        ], 200);
     }
 }

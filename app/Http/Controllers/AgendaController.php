@@ -6,6 +6,7 @@ use App\Helpers\DateHelper;
 use App\Helpers\Helper;
 use App\Helpers\ImageHelper;
 use App\Helpers\StatusHelper;
+use App\Http\Resources\AgendaResource;
 use App\Models\Admin;
 use App\Models\Agenda;
 use App\Models\User;
@@ -18,7 +19,7 @@ class AgendaController extends Controller
     public function index(Request $request)
     {
         session()->put('title', 'Agenda');
-        $agendas = Agenda::where('status', '!=', 0)->get();
+        $agendas = Agenda::where('status', '!=', 0)->latest()->get();
         if ($request->ajax()) {
             return DataTables::of($agendas)->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -35,7 +36,7 @@ class AgendaController extends Controller
                     return $btn;
                 })
                 ->editColumn('title', function ($agenda) {
-                    $file = $agenda['file'] ? asset($agenda['file']) : asset('asset/img/user4.jpg');
+                    $file = $agenda['file'] ? asset($agenda['file']) : asset('asset/img/no_image.jpeg');
                     return '<div class="m-widget3">
                     <div class="m-widget3__item mb-0">
                         <div class="m-widget3__header">
@@ -124,8 +125,23 @@ class AgendaController extends Controller
 
     public function detail(Request $request)
     {
-        // dd($request);
         $agenda = Agenda::find($request['id']);
         return response()->json($agenda);
+    }
+
+    public function full_detail(Request $request)
+    {
+        $agenda = Agenda::find($request['id']);
+        $agenda = new AgendaResource($agenda);
+        return response()->json($agenda);
+    }
+
+    public function update_status(Request $request)
+    {
+        Agenda::where('id', $request->id)->update(['status' => $request->status]);
+        return response()->json([
+            'message' => 'Agenda berhasil diperbarui',
+            'status' => true,
+        ], 200);
     }
 }

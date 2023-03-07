@@ -12,4 +12,14 @@ class Blog extends Model
     protected $table = 'blogs';
 
     protected $guarded = [];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id');
+    }
+
+    public function admins()
+    {
+        return $this->belongsTo(Admin::class, 'id_user', 'id');
+    }
 }

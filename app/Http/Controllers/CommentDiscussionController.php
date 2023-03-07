@@ -22,4 +22,20 @@ class CommentDiscussionController extends Controller
             'status' => true,
         ], 200);
     }
+
+    public function detail(Request $request)
+    {
+        $comment = CommentDiscussion::find($request['id']);
+        return response()->json($comment);
+    }
+
+    public function delete(Request $request)
+    {
+        $comment = CommentDiscussion::find($request->id);
+        $comment->update(array('status' => 0));
+        return response()->json([
+            'message' => 'Komentar berhasil dihapus',
+            'status' => true,
+        ], 200);
+    }
 }

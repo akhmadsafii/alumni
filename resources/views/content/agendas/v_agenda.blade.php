@@ -165,6 +165,20 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="detail-agenda">
+                    </div>
+                </div>
+            </div>
+        </div>
     @endpush
     @push('scripts')
         @include('package.datatables.datatable_js')
@@ -244,7 +258,7 @@
                         $('#description').val(data.description);
                         if (data.file) {
                             $('#preview-image').attr('src', data.file);
-                        }else{
+                        } else {
                             $('#preview-image').attr('src', 'https://via.placeholder.com/150');
                         }
                         $('#modalForm').modal('show');
@@ -268,6 +282,75 @@
                         }
                     })
                 }
+            }
+
+            function detailData(id) {
+                $.ajax({
+                    url: '{{ route('admin.agenda.full_detail') }}',
+                    data: {
+                        id
+                    },
+                    success: (data) => {
+                        let detail = `
+                        <ul class="list-unstyled">
+                            <li class="media">
+                                <img src="${data.file}" class="align-self-center mr-3"
+                                    width="150" alt="...">
+                                <div class="media-body">
+                                    <h5 class="mt-0 mb-1">${data.title}</h5>
+                                    <div class="m-demo-icon">
+                                        <div class="m-demo-icon__preview">
+                                            <i class="la la-map-marker"></i>
+                                        </div>
+                                        <div class="m-demo-icon__class">${data.location}</div>
+                                    </div>
+                                    <div class="m-demo-icon">
+                                        <div class="m-demo-icon__preview">
+                                            <i class="la la-clock-o"></i>
+                                        </div>
+                                        <div class="m-demo-icon__class">${data.start_date}</div>
+                                    </div>
+                                    <div class="m-demo-icon">
+                                        <div class="m-demo-icon__preview">
+                                            <i class="la la-info-circle"></i>
+                                        </div>
+                                        <div class="m-demo-icon__class">${data.description}</div>
+                                    </div>
+                                    <p>Dibuat oleh ${data.user} &#x2022; ${data.created_at}</p>
+                                </div>
+                            </li>
+                        </ul>
+                        `;
+                        if (data.status === 2) {
+                            detail += `
+                            <div class="row">
+                                <div class="col-6 col-md-6">
+                                    <button type="button" class="btn m-btn--pill btn-danger btn-block" onclick="update_status(${data.id},3)">Tolak</button>
+                                </div>
+                                <div class="col-6 col-md-6">
+                                    <button type="button" class="btn m-btn--pill btn-success btn-block" onclick="update_status(${data.id},1)">Terima</button>
+                                </div>
+                            </div>
+                            `;
+                        }
+                        $('#detail-agenda').html(detail);
+                        $('#modalDetail').modal('show');
+                    }
+                });
+            }
+
+            function update_status(id, status) {
+                $.ajax({
+                    url: "{{ route('admin.agenda.update_status') }}",
+                    data: {
+                        id,
+                        status
+                    },
+                    success: function(data) {
+                        $('#list-table').dataTable().fnDraw(false);
+                        $('#modalDetail').modal('hide');
+                    }
+                });
             }
 
             function readURL(input, id) {

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->dateTimeTz('start_date')->nullable();
             $table->dateTimeTz('end_date')->nullable();
             $table->string('file')->nullable();
-            $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('status')->default(2);
             $table->timestamps();
         });
     }

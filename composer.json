@@ -34,7 +34,8 @@
         },
         "files": [
             "app/Helpers/DateHelper.php",
-            "app/Helpers/Helper.php"
+            "app/Helpers/Helper.php",
+            "app/Helpers/StatusHelper.php"
         ]
     },
     "autoload-dev": {

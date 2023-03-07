@@ -11,38 +11,47 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\MajorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\User\BlogController as UserBlogController;
 use App\Http\Controllers\User\GalleryController as UserGalleryController;
 use App\Http\Controllers\User\SurveyController as UserSurveyController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/sendmail', [MailController::class, 'index']);
 Route::get('/', [GuestController::class, 'index'])->name('first_page');
 Route::get('discussion', [GuestController::class, 'discussion'])->name('discussion');
 Route::get('alumni', [GuestController::class, 'alumni'])->name('alumni');
 Route::get('agenda', [GuestController::class, 'agenda'])->name('agenda');
 Route::get('survey', [UserSurveyController::class, 'category'])->name('survey.category');
 Route::get('category/{category}', [UserSurveyController::class, 'survey'])->name('survey.survey');
-Route::get('blog', [UserBlogController::class, 'index'])->name('public.blog');
+// Route::get('blog', [UserBlogController::class, 'index'])->name('public.blog');
+Route::prefix('blogs')->name('blog.')->group(function () {
+    Route::get('/', [UserBlogController::class, 'index'])->name('public');
+    Route::get('detail/{title}', [UserBlogController::class, 'detail'])->name('detail');
+    // Route::get('preview/{image}', [UserGalleryController::class, 'preview'])->name('preview');
+    // Route::get('delete', [AdminController::class, 'delete'])->name('delete');
+});
 Route::prefix('galleries')->name('gallery.')->group(function () {
     Route::get('/', [UserGalleryController::class, 'index'])->name('public');
     Route::get('detail/{title}', [UserGalleryController::class, 'detail'])->name('detail');
-    // Route::get('detail', [AdminController::class, 'detail'])->name('detail');
+    Route::get('preview/{image}', [UserGalleryController::class, 'preview'])->name('preview');
     // Route::get('delete', [AdminController::class, 'delete'])->name('delete');
 });
-// Route::get('gallery', [UserGalleryController::class, 'index'])->name('public.gallery');
 
 Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('login', [AuthController::class, 'login'])->name('login');
-    // Route::get('register', [AuthController::class, 'register'])->name('register');
+    Route::get('register', [AuthController::class, 'register'])->name('register');
     Route::post('verify', [AuthController::class, 'verify_login'])->name('verify_login');
-    // Route::post('verify-register', [AuthController::class, 'verifyRegister'])->name('verify_register');
+    Route::post('verify-register', [AuthController::class, 'verify_register'])->name('verify_register');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-Route::middleware('auth:admin')->group(function () {
+Route::middleware('auth:user,admin')->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'admin'])->name('dashboard');
         Route::prefix('manages')->name('manage.')->group(function () {
@@ -51,6 +60,14 @@ Route::middleware('auth:admin')->group(function () {
             Route::get('detail', [AdminController::class, 'detail'])->name('detail');
             Route::get('delete', [AdminController::class, 'delete'])->name('delete');
         });
+
+        Route::prefix('users')->name('user.')->group(function () {
+            Route::get('/', [UserController::class, 'index'])->name('page');
+            Route::post('/', [UserController::class, 'store'])->name('store');
+            Route::get('detail', [UserController::class, 'detail'])->name('detail');
+            Route::get('delete', [UserController::class, 'delete'])->name('delete');
+        });
+
         Route::prefix('settings')->name('setting.')->group(function () {
             Route::get('/', [SettingController::class, 'index'])->name('page');
             Route::post('/', [SettingController::class, 'store'])->name('store');
@@ -73,6 +90,8 @@ Route::middleware('auth:admin')->group(function () {
 
         Route::prefix('comments')->name('comment.')->group(function () {
             Route::post('/', [CommentDiscussionController::class, 'store'])->name('store');
+            Route::get('delete', [CommentDiscussionController::class, 'delete'])->name('delete');
+            Route::get('detail', [CommentDiscussionController::class, 'detail'])->name('detail');
         });
 
         Route::prefix('categories')->name('category.')->group(function () {
@@ -102,6 +121,8 @@ Route::middleware('auth:admin')->group(function () {
             Route::get('/', [AgendaController::class, 'index'])->name('page');
             Route::post('/', [AgendaController::class, 'store'])->name('store');
             Route::get('detail', [AgendaController::class, 'detail'])->name('detail');
+            Route::get('full-detail', [AgendaController::class, 'full_detail'])->name('full_detail');
+            Route::get('update_status', [AgendaController::class, 'update_status'])->name('update_status');
         });
 
         Route::prefix('blogs')->name('blog.')->group(function () {
@@ -118,6 +139,16 @@ Route::middleware('auth:admin')->group(function () {
             Route::post('/', [GalleryController::class, 'store'])->name('store');
             Route::get('load-image', [GalleryController::class, 'load_image'])->name('load_image');
             Route::get('download/{code}', [GalleryController::class, 'download'])->name('download');
+            Route::get('update-status', [GalleryController::class, 'update_status'])->name('update_status');
+            Route::get('update-publish', [GalleryController::class, 'update_publish'])->name('update_publish');
+        });
+
+        Route::prefix('majors')->name('major.')->group(function () {
+            Route::get('/', [MajorController::class, 'index'])->name('page');
+            Route::post('/', [MajorController::class, 'store'])->name('store');
+             Route::get('delete', [MajorController::class, 'delete'])->name('delete');
+            Route::get('detail', [MajorController::class, 'detail'])->name('detail');
+            Route::get('update-status', [MajorController::class, 'update_status'])->name('update_status');
         });
     });
 });

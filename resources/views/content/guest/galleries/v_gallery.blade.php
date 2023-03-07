@@ -2,35 +2,6 @@
 @section('content')
     @push('styles')
         <style>
-            .container-fluid {
-                z-index: 3;
-            }
-
-            .main-content {
-                margin-top: -700px;
-            }
-
-            /* .my-card {
-                                                                                position: absolute;
-                                                                                top: -20px;
-                                                                            } */
-
-            @media only screen and (max-width: 480px) {
-                .container.p-5.bg-light {
-                    margin-top: 85px !important;
-                    width: auto !important;
-                    margin: 0 10px;
-                    padding: 10px !important;
-                }
-
-                .main-content {
-                    margin-top: -880px !important;
-                }
-            }
-
-
-
-            /* DEMO GENERAL ============================== */
             .hover {
                 overflow: hidden;
                 position: relative;
@@ -60,8 +31,6 @@
                 z-index: 99;
             }
 
-
-            /* DEMO 1 ============================== */
             .hover-1 img {
                 width: 105%;
                 position: absolute;
@@ -106,9 +75,8 @@
             }
         </style>
     @endpush
-    <section class="hero-section" id="hero">
+    <section class="hero-section inner-page">
         <div class="wave">
-
             <svg width="100%" height="355px" viewBox="0 0 1920 355" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -119,24 +87,29 @@
                     </g>
                 </g>
             </svg>
-
         </div>
-    </section>
-    <div class="container-fluid position-relative">
-        <div class="main-content p-5 bg-transparent rounded" style="">
-            <div class="bg-transparent">
-                <div class="text-center">
-                    <h2 class="mt-3 text-white">Galeri</h2>
-                    <p class="mt-3 text-white">Abadikan moment tebaikmu bersama teman disini
-                    </p>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <div class="row justify-content-center">
+                        <div class="col-md-7 text-center hero-text">
+                            <h1 data-aos="fade-up" data-aos-delay="" class="aos-init aos-animate">Galleri</h1>
+                            <p class="mb-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">Abadikan moment
+                                terbaikmu bersama teman disini.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
+    <section class="section pt-3">
+        <div class="container">
             <div class="row d-flex justify-content-center">
                 <div class="col-md-7">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" aria-label="Text input with dropdown button">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false" style="padding: 13px 30px !important;">Dropdown</button>
+                            aria-expanded="false" style="padding: 12px 30px !important;">Dropdown</button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="#">Action</a></li>
                             <li><a class="dropdown-item" href="#">Another action</a></li>
@@ -149,7 +122,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 @foreach ($galleries as $gallery)
                     @php
@@ -160,59 +132,34 @@
                             $user = $gallery->name_user;
                             $avatar = $gallery->file_user ? asset($gallery->file_user) : asset('asset/img/user4.jpg');
                         }
-                        
+
                         $image = json_decode($gallery->file);
                         $image = asset(reset($image));
                     @endphp
                     <div class="col-lg-3 col-md-4 col-6">
-                        <div class="hover hover-1 text-white rounded"><img
-                                src="https://bootstrapious.com/i/snippets/sn-img-hover/hoverSet-3.jpg" alt="">
-                            <div class="hover-overlay"></div>
-                            <div class="hover-1-content px-5 pt-4">
-                                <h3 class="hover-1-title text-uppercase font-weight-bold mb-0"> <span
-                                        class="font-weight-light">Image </span>Caption</h3>
-                                <p class="hover-1-description font-weight-light mb-0">Lorem ipsum dolor sit amet,
-                                    consectetur adipisicing elit.</p>
+                        <a href="{{ route('gallery.detail', $gallery->code) }}">
+                            <div class="hover hover-1 text-white rounded"><img src="{{ $image }}" alt="">
+                                <div class="hover-overlay"></div>
+                                <div class="hover-1-content px-5 pt-4">
+                                    <h3 class="hover-1-title text-uppercase font-weight-bold mb-0 text-light">
+                                        {{ $gallery->name }}</h3>
+                                    <p class="hover-1-description font-weight-light mb-0">{!! Str::limit($gallery->description, 100) !!}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center my-2">
-                            <div class="d-flex justify-content-start align-items-center">
-                                <a href="#!">
+                            <div class="d-flex justify-content-between align-items-center my-2">
+                                <div class="d-flex justify-content-start align-items-center">
                                     <img src="{{ $avatar }}" alt="avatar" class="img-fluid rounded-circle me-3"
                                         width="35">
-                                </a>
-                                <p class="my-0"><strong>{{ $user }}</strong></p>
-                            </div>
-                            <span>
-                                <i class="bi bi-eye-fill"></i> 200
-                            </span>
-                        </div>
-                    </div>
-                    {{-- <div class="col-lg-3 col-md-4 col-6">
-                        <a href="{{ route('gallery.detail', $gallery->code) }}">
-                            <div class="card">
-                                <img class="img-fluid rounded w-100" src="{{ $image }}" alt="">
-                                <div class="d-flex justify-content-between align-items-center mx-3 my-2">
-                                    <div class="d-flex justify-content-start align-items-center">
-                                        <a href="#!">
-                                            <img src="{{ $avatar }}" alt="avatar"
-                                                class="img-fluid rounded-circle me-3" width="35">
-                                        </a>
-                                        <p class="my-0"><strong>{{ $user }}</strong></p>
-                                    </div>
-                                    <span>
-                                        <i class="bi bi-eye-fill"></i> 200
-                                    </span>
+                                    <p class="my-0"><strong>{{ $user }}</strong></p>
                                 </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $gallery->name }}</h5>
-                                    <p class="card-text">{!! Str::limit($gallery->description, 100) !!}</p>
-                                </div>
+                                <span>
+                                    <i class="bi bi-eye-fill"></i> 200
+                                </span>
                             </div>
                         </a>
-                    </div> --}}
+                    </div>
                 @endforeach
             </div>
         </div>
-    </div>
+    </section>
 @endsection

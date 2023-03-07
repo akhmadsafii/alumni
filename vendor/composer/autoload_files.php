@@ -56,4 +56,5 @@ return array(
     '320163ac6b93aebe3dc25b60a0533d56' => $vendorDir . '/spatie/laravel-ignition/src/helpers.php',
     'e816a3bbf3d3060666b2a42b01a93ac0' => $baseDir . '/app/Helpers/DateHelper.php',
     '8fde5feda9697fe0ee53a3938c839fb0' => $baseDir . '/app/Helpers/Helper.php',
+    '8e97a69205e86134256e324e7df48ec3' => $baseDir . '/app/Helpers/StatusHelper.php',
 );

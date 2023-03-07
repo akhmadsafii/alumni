@@ -75,7 +75,7 @@
                                                 </label>
                                             </div>
                                         </th>
-                                        <th>Nama Gambar</th>
+                                        <th>Gambar</th>
                                         <th>Pembuat</th>
                                         <th>Tanggal</th>
                                         <th>Publish</th>
@@ -206,7 +206,22 @@
                     let id = $(this).data('id');
                     let status = $(this).is(':checked') ? 1 : 2;
                     $.ajax({
-                        url: "{{ route('admin.cluster.update_status') }}",
+                        url: "{{ route('admin.gallery.update_status') }}",
+                        data: {
+                            id,
+                            status
+                        },
+                        success: function(data) {
+                            console.log(data)
+                        }
+                    });
+                });
+
+                $(document).on('click', '.update_publish', function() {
+                    let id = $(this).data('id');
+                    let status = $(this).is(':checked') ? 1 : 0;
+                    $.ajax({
+                        url: "{{ route('admin.gallery.update_publish') }}",
                         data: {
                             id,
                             status
@@ -275,7 +290,7 @@
                     },
                     success: function(result) {
                         destroyCarousel();
-                        $('.reviews-page-carousel').html('');        
+                        $('.reviews-page-carousel').html('');
                         $('.reviews-page-carousel').html(result.source_html); // apply new data
                         applySlider();
                         $('.title-gallery').html(result.gallery);

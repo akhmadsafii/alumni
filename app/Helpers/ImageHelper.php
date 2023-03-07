@@ -12,8 +12,8 @@ class ImageHelper
     {
         $file = $request->file($name);
         $profileImage = date('YmdHis') . "." . $file->getClientOriginalExtension();
-        // $resolusi = explode('|', env('SETTING_RESOLUTION'));
-        $thumb = Image::make($file->getRealPath())->resize(100, 100, function ($constraint) {
+        $resolution = env('CONFIG_SIZE_COMPRESS');
+        $thumb = Image::make($file->getRealPath())->resize($resolution, $resolution, function ($constraint) {
             $constraint->aspectRatio();
         });
         $destination = public_path($path);
@@ -28,8 +28,8 @@ class ImageHelper
         // $asset = ImageHelper::upload_asset($request, $name, $path, $data);
         $file = $request->file($name);
         $profileImage = date('YmdHis') . "." . $file->getClientOriginalExtension();
-        // $resolusi = explode('|', env('SETTING_RESOLUTION'));
-        $thumb = Image::make($file->getRealPath())->resize(100, 100, function ($constraint) {
+        $resolution = env('CONFIG_SIZE_COMPRESS');
+        $thumb = Image::make($file->getRealPath())->resize($resolution, $resolution, function ($constraint) {
             $constraint->aspectRatio();
         });
         $destination = public_path($path);
@@ -72,7 +72,8 @@ class ImageHelper
     public static function upload_multiple_asset_drive($file, $path)
     {
         $profileImage = date('YmdHis') . Helper::str_random(5) . "." . $file->getClientOriginalExtension();
-        $thumb = Image::make($file->getRealPath())->resize(100, 100, function ($constraint) {
+        $resolution = env('CONFIG_SIZE_COMPRESS');
+        $thumb = Image::make($file->getRealPath())->resize($resolution, $resolution, function ($constraint) {
             $constraint->aspectRatio();
         });
         $destination = public_path($path);

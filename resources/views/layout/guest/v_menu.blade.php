@@ -11,9 +11,9 @@
             <li><a class="active" href="{{ route('first_page') }}">Beranda</a></li>
             <li><a href="{{ route('discussion') }}">Diskusi</a></li>
             <li><a href="{{ route('alumni') }}">Alumni</a></li>
-            <li><a href="{{ route('agenda') }}">Agenda</a></li>
+            <li><a href="{{ route('agenda', ['appear' => 'all']) }}">Agenda</a></li>
             <li><a href="{{ route('survey.category') }}">Survey</a></li>
-            <li><a href="{{ route('public.blog') }}">Blog</a></li>
+            <li><a href="{{ route('blog.public') }}">Blog</a></li>
             <li><a href="{{ route('gallery.public') }}">Galeri</a></li>
             @if (Auth::guard('user')->check())
                 <li class="dropdown">

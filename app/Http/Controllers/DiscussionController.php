@@ -56,6 +56,7 @@ class DiscussionController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
         $data = $request->toArray();
         $data['role'] = session('role');
         $data['id_user'] = session('id');
@@ -89,6 +90,7 @@ class DiscussionController extends Controller
     {
         $discussion = Discussion::find($request->id);
         $discussion->update(array('status' => 0));
+        CommentDiscussion::where('id_discussion', $discussion->id)->update(['status' => 0]);
         return response()->json([
             'message' => 'Diskusi berhasil dihapus',
             'status' => true,
