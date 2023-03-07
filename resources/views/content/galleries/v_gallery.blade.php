@@ -155,7 +155,7 @@
     @endpush
     @push('scripts')
         @include('package.datatables.datatable_js')
-        @include('package.uploadImage.multiupload_js')
+        @include('package.uploadimage.multiupload_js')
         @include('package.summernote.summernote_js')
         @include('package.swipper.swipper_js')
         @include('component.formImageSubmit')
