@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Helper;
 use App\Http\Resources\AgendaResource;
 use App\Http\Resources\DiscussionResource;
+use App\Http\Resources\UserResource;
 use App\Models\Agenda;
 use App\Models\Blog;
 use App\Models\Discussion;
@@ -41,12 +42,30 @@ class GuestController extends Controller
         return view('content.guest.v_login');
     }
 
-    public function alumni()
+    public function alumni(Request $request)
     {
+        $sort_search = null;
+        $users = [];
+        if ($request->search != null) {
+            $sort_search = $request->search;
+            $users = User::where('status', 1);
+        }
+        if ($request->major != null) {
+            $major = Major::where('code', $request->major)->first();
+            $users = $users->where('id_major', $major['id']);
+        }
+        if ($request->graduating_class != null) {
+            $users = $users->where('graduating_class', $request['graduating_class']);
+        }
+        if ($request->search != null) {
+            $users = $users
+                ->where('name', 'like', '%' . $request->search . '%')->get();
+            $users = UserResource::collection($users)->resolve();
+        }
+        $users = Helper::paginate($users)->setPath(route('alumni'));
         $majors = Major::where('status', 1)->get();
-        $year = User::groupBy('graduating_class')->get();
-        dd($year);
-        return view('content.guest.v_alumni', compact('majors'));
+        $graduating_class = User::groupBy('graduating_class')->orderBy('graduating_class', 'DESC')->pluck('graduating_class');
+        return view('content.guest.v_alumni', compact('majors', 'graduating_class', 'users', 'sort_search'));
     }
 
     public function agenda(Request $request)
@@ -62,9 +81,9 @@ class GuestController extends Controller
             $pure_agenda = $pure_agenda->where('start_date', '<', now());
         }
 
-        if ($request->search != null){
+        if ($request->search != null) {
             $pure_agenda = $pure_agenda
-                        ->where('title', 'like', '%'.$request->search.'%');
+                ->where('title', 'like', '%' . $request->search . '%');
             $sort_search = $request->search;
         }
         $pure_agenda = $pure_agenda->get();

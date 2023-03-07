@@ -49,40 +49,59 @@
     </section>
     <section class="section pt-3">
         <div class="container">
-            <div class="row align-items-center mb-5">
-                <div class="col-8 mx-auto">
-                    <form action="">
-                        <div class="input-group custom-search position-relative">
-                            <input type="text" class="form-control custom-search-input w-100" id="search" name="search"
-                            @isset($sort_search) value="{{ $sort_search }}" @endisset
-                                placeholder="Masukan Pencarian">
-                            <button class="btn btn-primary custom-search-botton position-absolute"
-                                type="submit">Cari</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
             <div class="row mb-5">
-                @foreach ($blogs as $blog)
-                    <div class="col-md-4">
-                        <div class="post-entry">
-                            <a href="{{ route('blog.detail', $blog['code']) }}" class="d-block mb-4">
-                                <div class="img-blog" style="background-image: url('{{ $blog['file'] }}')">
-                                </div>
-                            </a>
-                            <div class="post-text"> <span class="post-meta">{{ $blog['created_at'] }} • By <a
-                                        href="#">{{ $blog['user'] }}</a></span>
-                                <h3><a href="{{ route('blog.detail', $blog['code']) }}">{{ $blog['title'] }}</a></h3>
-                                <p>{!! Str::limit($blog['content'], 200) !!}</p>
-                                @if (strlen($blog['content']) > 200)
-                                    <p><a href="{{ route('blog.detail', $blog['code']) }}" class="readmore">Read more</a>
-                                    </p>
-                                @endif
+                @if ($blogs->isNotEmpty())
+                    <div class="col-md-12">
+                        <div class="row align-items-center mb-5">
+                            <div class="col-8 mx-auto">
+                                <form action="">
+                                    <div class="input-group custom-search position-relative">
+                                        <input type="text" class="form-control custom-search-input w-100" id="search"
+                                            name="search"
+                                            @isset($sort_search) value="{{ $sort_search }}" @endisset
+                                            placeholder="Masukan Pencarian">
+                                        <button class="btn btn-primary custom-search-botton position-absolute"
+                                            type="submit">Cari</button>
+                                    </div>
+                                </form>
                             </div>
+
                         </div>
                     </div>
-                @endforeach
+                    @foreach ($blogs as $blog)
+                        <div class="col-md-4">
+                            <div class="post-entry">
+                                <a href="{{ route('blog.detail', $blog['code']) }}" class="d-block mb-4">
+                                    <div class="img-blog" style="background-image: url('{{ $blog['file'] }}')">
+                                    </div>
+                                </a>
+                                <div class="post-text"> <span class="post-meta">{{ $blog['created_at'] }} • By <a
+                                            href="#">{{ $blog['user'] }}</a></span>
+                                    <h3><a href="{{ route('blog.detail', $blog['code']) }}">{{ $blog['title'] }}</a></h3>
+                                    <p>{!! Str::limit($blog['content'], 200) !!}</p>
+                                    @if (strlen($blog['content']) > 200)
+                                        <p><a href="{{ route('blog.detail', $blog['code']) }}" class="readmore">Read
+                                                more</a>
+                                        </p>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <div class="col-md-12">
+                        <div class="row align-items-center">
+                            <div class="col-md-4 me-auto">
+                                <h2 class="mb-4">Blog tidak tersedia</h2>
+                                <p class="mb-4">Untuk saat ini belum ada blog yang tersedia. Silahkan akses dan coba dilain
+                                    waktu kembali</p>
+                            </div>
+                            <div class="col-md-6 aos-init aos-animate" data-aos="fade-left"> <img
+                                    src="{{ asset('asset/guest/img/empty.svg') }}" alt="Image" class="img-fluid"></div>
+                        </div>
+                    </div>
+                @endif
+
             </div>
             <div class="row">
                 <div class="col-12 d-flex justify-content-center">

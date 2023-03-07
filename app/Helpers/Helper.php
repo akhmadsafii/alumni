@@ -41,7 +41,7 @@ class Helper
         return $option;
     }
 
-    public static function paginate($items, $perPage = 10, $page = null, $options = [])
+    public static function paginate($items, $perPage = 12, $page = null, $options = [])
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);

@@ -15,7 +15,7 @@
                 top: 0;
                 left: 0;
                 width: 100%;
-                height: 125px;
+                height: 85px;
                 background-position: center;
                 background-size: cover;
             }
@@ -48,16 +48,16 @@
             </div>
         </div>
     </section>
-
-
-    <section class="section">
+    <section class="section pt-2">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-8 mx-auto">
-                    <form action="" method="post">
+                    <form action="">
                         <div class="input-group custom-search position-relative">
                             <input type="text" class="form-control custom-search-input w-100"
-                                placeholder="Masukan Pencarian">
+                                placeholder="Masukan Pencarian"
+                                @isset($sort_search) value="{{ $sort_search }}" @endisset name="search"
+                                required>
                             <button class="btn btn-primary custom-search-botton position-absolute"
                                 type="submit">Cari</button>
                         </div>
@@ -65,10 +65,10 @@
                             <div class="col-md-6">
                                 <div class="my-3">
                                     <label for="">Jurusan</label>
-                                    <select name="id_major" id="id_major" class="form-control">
+                                    <select name="major" id="id_major" class="form-control">
                                         <option value="" selected disabled>Pilih Jurusan</option>
                                         @foreach ($majors as $major)
-                                            <option value="{{ $major['id'] }}">{{ $major['name'] }}</option>
+                                            <option value="{{ $major['code'] }}">{{ $major['name'] }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -76,8 +76,11 @@
                             <div class="col-md-6">
                                 <div class="my-3">
                                     <label for="">Angkatan</label>
-                                    <select name="id_major" id="id_major" class="form-control">
-                                        <option value="">Pilih Jurusan</option>
+                                    <select name="graduating_class" id="graduating_class" class="form-control">
+                                        <option value="" selected disabled>-- Pilih Angkatan --</option>
+                                        @foreach ($graduating_class as $year)
+                                            <option value="{{ $year }}">{{ $year }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -87,58 +90,44 @@
 
             </div>
         </div>
-
     </section>
     <div class="container" style="top: -100px !important;">
         <div class="col-md-10 col-12 mx-auto">
             <div class="row">
-                <div class="col-md-4 col-6">
-                    <div
-                        class="profile-card card rounded-lg shadow p-4 p-xl-5 mb-4 text-center position-relative overflow-hidden">
-                        <div class="banner" style="background-image: url({{ asset('asset/img/bg-1.png') }});"></div>
-                        <h4 class="mb-4">Tukang Jamu</h4>
-                        <img src="{{ asset('asset/img/user4.jpg') }}" alt="" class="rounded-circle mx-auto mb-3">
-                        <div class="text-center mb-4">
-                            <p class="mb-2 text-muted">Paijo</p>
-                            <p class="mb-2 text-muted">132343</p>
+                @if ($users->isNotEmpty())
+                    @foreach ($users as $user)
+                        <div class="col-md-3 col-6">
+                            <div
+                                class="profile-card card rounded-lg shadow p-4 p-xl-5 mb-4 text-center position-relative overflow-hidden">
+                                <div class="banner" style="background-image: url({{ asset('asset/img/bg-1.png') }});"></div>
+                                <img src="{{ $user['file'] }}" alt="" class="rounded-circle mx-auto mb-3">
+                                <small class="mb-0">{{ $user['major'] }}</small>
+                                <h5 class="mb-2">{{ $user['name'] }}</h5>
+                                <div class="text-center mb-4">
+                                    <div class="review">
+                                        <p class="mb-0">Angkatan {{ $user['graduating_class'] }}</p>
+                                        <p>Lulus Tahun {{ $user['graduation_year'] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <div class="col-md-12">
+                        <div class="row align-items-center">
+                            <div class="col-md-4 me-auto">
+                                <h2 class="mb-4">Alumni tidak tersedia</h2>
+                                <p class="mb-4">Untuk saat ini belum ada alumni yang tersedia. Silahkan akses dan coba dilain
+                                    waktu kembali</p>
+                            </div>
+                            <div class="col-md-6 aos-init aos-animate" data-aos="fade-left"> <img
+                                    src="{{ asset('asset/guest/img/empty.svg') }}" alt="Image" class="img-fluid"></div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 col-6">
-                    <div
-                        class="profile-card card rounded-lg shadow p-4 p-xl-5 mb-4 text-center position-relative overflow-hidden">
-                        <div class="banner" style="background-image: url({{ asset('asset/img/bg-1.png') }});"></div>
-                        <h4 class="mb-4">Tukang Jamu</h4>
-                        <img src="{{ asset('asset/img/user4.jpg') }}" alt="" class="rounded-circle mx-auto mb-3">
-                        <div class="text-center mb-4">
-                            <p class="mb-2 text-muted">Paijo</p>
-                            <p class="mb-2 text-muted">132343</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-6">
-                    <div
-                        class="profile-card card rounded-lg shadow p-4 p-xl-5 mb-4 text-center position-relative overflow-hidden">
-                        <div class="banner" style="background-image: url({{ asset('asset/img/bg-1.png') }});"></div>
-                        <h4 class="mb-4">Tukang Jamu</h4>
-                        <img src="{{ asset('asset/img/user4.jpg') }}" alt="" class="rounded-circle mx-auto mb-3">
-                        <div class="text-center mb-4">
-                            <p class="mb-2 text-muted">Paijo</p>
-                            <p class="mb-2 text-muted">132343</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-6">
-                    <div
-                        class="profile-card card rounded-lg shadow p-4 p-xl-5 mb-4 text-center position-relative overflow-hidden">
-                        <div class="banner" style="background-image: url({{ asset('asset/img/bg-1.png') }});"></div>
-                        <h4 class="mb-4">Tukang Jamu</h4>
-                        <img src="{{ asset('asset/img/user4.jpg') }}" alt="" class="rounded-circle mx-auto mb-3">
-                        <div class="text-center mb-4">
-                            <p class="mb-2 text-muted">Paijo</p>
-                            <p class="mb-2 text-muted">132343</p>
-                        </div>
-                    </div>
+                @endif
+
+                <div class="d-flex justify-content-center">
+                    {{ $users->links() }}
                 </div>
             </div>
         </div>
