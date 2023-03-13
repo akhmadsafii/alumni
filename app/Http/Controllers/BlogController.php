@@ -110,7 +110,7 @@ class BlogController extends Controller
         $mimes = 'mimes:' . str_replace('|', ',', env('CONFIG_FORMAT_IMAGE'));
         $rules = [
             'file' => ['image', $mimes, $max_size],
-            'title' => ['required', "regex:/^[a-zA-Z .,']+$/"],
+            'title' => ['required'],
         ];
 
         $messages = [

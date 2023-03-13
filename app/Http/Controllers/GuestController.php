@@ -8,6 +8,7 @@ use App\Http\Resources\DiscussionResource;
 use App\Http\Resources\UserResource;
 use App\Models\Agenda;
 use App\Models\Blog;
+use App\Models\CategorySurvey;
 use App\Models\Discussion;
 use App\Models\Major;
 use App\Models\User;
@@ -19,9 +20,11 @@ class GuestController extends Controller
 {
     public function index()
     {
+        $categories = CategorySurvey::where('status', 1)->get();
+        // dd($categories);
         $blogs = Blog::where('status', '!=', 0)->limit(4)->get();
         $agendas = Agenda::where('status', '!=', 0)->limit(5)->get();
-        return view('content.guest.v_home', compact('blogs', 'agendas'));
+        return view('content.guest.v_home', compact('blogs', 'agendas', 'categories'));
     }
 
     public function login()

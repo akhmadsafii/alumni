@@ -1,7 +1,13 @@
 @extends('layout.guest.v_main')
 @section('content')
     @push('styles')
+        @include('package.swipper.swipper_css')
         <style>
+            .slick-prev:before,
+            .slick-next:before {
+                color: rgb(40, 108, 197);
+            }
+
             .line {
                 display: block;
             }
@@ -87,44 +93,55 @@
                 study bertujuan untuk mengetahui outcomependidikan dalam bentuk transisi dari dunia pendidikan tinggi ke
                 dunia kerja</p>
 
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                                the card's content.</p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
+
+            @if ($categories->isNotEmpty())
+                <div class="row reviews-page-carousel">
+                    @foreach ($categories as $ctg)
+                        <div class="col-md-4">
+                            <div class="card m-1">
+                                <div class="card-content">
+                                    <div class="card-body cleartfix">
+                                        <div class="media d-flex">
+                                            <div class="align-self-center me-2 text-success">
+                                                <i class="bi bi-check2-circle" style="font-size:42px;"></i>
+                                            </div>
+                                            <div class="media-body">
+                                                <h5 class="card-title"> {{ ucfirst($ctg['name']) }}</h5>
+                                                <p class="card-text">
+                                                    {{ str_limit(
+                                                        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id culpa itaque maiores corrupti doloribus voluptatibus? Necessitatibus debitis velit ducimus mollitia, eveniet, incidunt laudantium corrupti maxime magni quis non! Earum, neque?',
+                                                        100,
+                                                    ) }}
+                                                </p>
+                                                <div class="d-flex justify-content-end">
+                                                    <a href="" class="btn btn-primary btn-sm mx-1"><i
+                                                            class="bi bi-info-circle-fill"></i> Detail</a>
+                                                    <a href="http://localhost:8000/category/beasiswa-lJxco"
+                                                        class="btn btn-success btn-sm mx-1"><i
+                                                            class="bi bi-play-circle-fill"></i>
+                                                        Mulai</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                                the card's content.</p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div>
+            @else
+                <div class="row align-items-center">
+                    <div class="col-md-4 me-auto">
+                        <h2 class="mb-4">Survey tidak tersedia</h2>
+                        <p class="mb-4">Untuk saat ini belum ada survey yang ingin diisi. Silahkan akses dan coba dilain
+                            waktu kembali</p>
                     </div>
+                    <div class="col-md-6 aos-init aos-animate" data-aos="fade-left"> <img
+                            src="{{ asset('asset/guest/img/empty.svg') }}" alt="Image" class="img-fluid"></div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                                the card's content.</p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endif
+
+
         </div>
     </section>
     <section class="section pt-4">
@@ -135,50 +152,82 @@
                         <h2><span class="py-2 pe-2">Blog</span></h2>
                     </span>
                     <p class="mt-3"><a href="" class="text-primary">Lihat semua Berita dan Artikel</a></p>
-                    <div class="row">
-                        @foreach ($blogs as $blog)
-                            <div class="col-md-6">
-                                <div class="card mb-3 p-1">
-                                    <div class="card-img-top img-blog"
-                                        style="background-image: url('{{ $blog['file'] != null ? asset($blog['file']) : asset('asset/img/no_image.jpeg') }}')">
-                                    </div>
-                                    <div class="card-body" style="min-height: 200px;">
-                                        <h5 class="card-title mb-0">{{ $blog['title'] }}</h5>
-                                        <small>{{ $blog['created_at']->diffForHumans() }}</small>
-                                        <p class="card-text mt-2">{!! Str::limit($blog['content'], 200) !!}</p>
-                                        <a href="#">Read Post</a>
+                    @if ($blogs->isNotEmpty())
+                        <div class="row">
+                            @foreach ($blogs as $blog)
+                                <div class="col-md-6">
+                                    <div class="card mb-3 p-1">
+                                        <div class="card-img-top img-blog"
+                                            style="background-image: url('{{ $blog['file'] != null ? asset($blog['file']) : asset('asset/img/no_image.jpeg') }}')">
+                                        </div>
+                                        <div class="card-body" style="min-height: 200px;">
+                                            <h5 class="card-title mb-0">{{ $blog['title'] }}</h5>
+                                            <small>{{ $blog['created_at']->diffForHumans() }}</small>
+                                            <p class="card-text mt-2">{!! Str::limit($blog['content'], 200) !!}</p>
+                                            <a href="#">Read Post</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
-                    </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="text-center">
+                            <h2><i class="bi bi-plus-circle"></i></h2>
+                            <h4>Blog Saat ini tidak tidak tersedia</h4>
+                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste odio facere sunt rem obcaecati
+                                repellendus amet possimus, eius, blanditiis numquam nam veniam accusantium quas corporis
+                                ducimus consequatur quos similique. Optio.</p>
+                        </div>
+                    @endif
+
                 </div>
                 <div class="col-md-6">
                     <span class="line">
                         <h2><span class="py-2 pe-2">Agenda</span></h2>
                     </span>
                     <p class="mt-3"><a href="" class="text-primary">Lihat semua Agenda dalam bulan ini</a></p>
-                    @foreach ($agendas as $agenda)
-                        <div class="card mb-3 p-1">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                    <div class="img-fluid rounded-start img-agenda"
-                                        style="background-image: url('{{ $agenda['file'] != null ? asset($agenda['file']) : asset('asset/img/no_image.jpeg') }}')">
+                    @if ($agendas->isNotEmpty())
+                        @foreach ($agendas as $agenda)
+                            <div class="card mb-3 p-1">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <div class="img-fluid rounded-start img-agenda"
+                                            style="background-image: url('{{ $agenda['file'] != null ? asset($agenda['file']) : asset('asset/img/no_image.jpeg') }}')">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-0">{{ $agenda['title'] }}</h5>
-                                        <small>Waktu : {{ DateHelper::getTanggal($agenda['start_date']) }}</small>
-                                        <p class="card-text mt-2">{!! Str::limit($agenda['description'], 80) !!}</p>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title mb-0">{{ $agenda['title'] }}</h5>
+                                            <small>Waktu : {{ DateHelper::getTanggal($agenda['start_date']) }}</small>
+                                            <p class="card-text mt-2">{!! Str::limit($agenda['description'], 80) !!}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        @endforeach
+                    @else
+                        <div class="text-center">
+                            <h2><i class="bi bi-plus-circle"></i></h2>
+                            <h4>Agenda Saat ini tidak tidak tersedia</h4>
+                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste odio facere sunt rem obcaecati
+                                repellendus amet possimus, eius, blanditiis numquam nam veniam accusantium quas corporis
+                                ducimus consequatur quos similique. Optio.</p>
                         </div>
-                    @endforeach
+                    @endif
+
                 </div>
             </div>
 
         </div>
     </section>
+    @push('scripts')
+        @include('package.swipper.swipper_js')
+        <script>
+            $('.reviews-page-carousel').slick({
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 3
+            });
+        </script>
+    @endpush
 @endsection
