@@ -34,18 +34,20 @@ class BlogController extends Controller
 
     public function detail($title)
     {
-        // $blog = Blog::where('code', $code)->first();
+        $raw_blog = Blog::where('blogs.code', $title)->get();
+        $blog = BlogResource::collection($raw_blog)->resolve();
+        $blog = reset($blog);
         // dd($blog);
-
-        $blog = Blog::where('blogs.code', $title) ->select('blogs.*', 'users.name as name_user', 'users.file as file_user', 'admins.name as name_admin', 'admins.file as file_admin')
-        ->leftJoin('admins', function ($join) {
-            $join->on('admins.id', '=', 'blogs.id_user')
-                ->where('blogs.role', '=', 'admin');
-        })
-        ->leftJoin('users', function ($join) {
-            $join->on('users.id', '=', 'blogs.id_user')
-                ->where('blogs.role', '=', 'user');
-        })->first();
+        // dd(reset($blog));
+        // $blog = Blog::where('blogs.code', $title) ->select('blogs.*', 'users.name as name_user', 'users.file as file_user', 'admins.name as name_admin', 'admins.file as file_admin')
+        // ->leftJoin('admins', function ($join) {
+        //     $join->on('admins.id', '=', 'blogs.id_user')
+        //         ->where('blogs.role', '=', 'admin');
+        // })
+        // ->leftJoin('users', function ($join) {
+        //     $join->on('users.id', '=', 'blogs.id_user')
+        //         ->where('blogs.role', '=', 'user');
+        // })->first();
         // dd($blog);
         return view('content.guest.blogs.v_detail_blog', compact('blog'));
     }

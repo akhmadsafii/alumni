@@ -30,25 +30,16 @@
                 <div class="col-md-12">
                     <div class="post-text">
 
-                        <h3><a href="#">Chrome now alerts you when someone steals your password</a></h3>
+                        <h3><a href="#">{{ $blog['title'] }}</a></h3>
 
                         <div class="d-flex justify-content-between align-items-center my-2">
                             <div class="d-flex justify-content-start align-items-center">
-                                @php
-                                    if ($blog['role'] == 'admin') {
-                                        $avatar = $blog['file_admin'] ? asset($blog['file_admin']) : asset('asset/img/user4.jpg');
-                                        $user = $blog['name_admin'];
-                                    } else {
-                                        $avatar = $blog['file_user'] ? asset($blog['file_user']) : asset('asset/img/user4.jpg');
-                                        $user = $blog['name_user'];
-                                    }
-                                @endphp
-                                <img src="{{ $avatar }}" alt="avatar" class="img-fluid rounded-circle me-3"
+                                <img src="{{ $blog['avatar'] }}" alt="avatar" class="img-fluid rounded-circle me-3"
                                     width="50">
                                 <ul class="list-unstyled my-0">
                                     <li>
-                                        <h5 class="mb-0">{{ $user }}</h5>
-                                        <span>2 Jam yang lalu</span>
+                                        <h5 class="mb-0">{{ $blog['user'] }}</h5>
+                                        <span>{{ $blog['created_at'] }}</span>
                                     </li>
 
                                 </ul>
@@ -59,7 +50,7 @@
                         </div>
                         <a href=""></a>
                         <div class="img-blog"
-                            style="background-image: url('{{ $blog->file != null ? asset($blog->file) : asset('asset/img/no_image.jpeg') }}')">
+                            style="background-image: url('{{ $blog['file'] }}')">
                         </div>
                         <p>{!! $blog['content'] !!}</p>
 
