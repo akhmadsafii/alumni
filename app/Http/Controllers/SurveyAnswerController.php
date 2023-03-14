@@ -46,4 +46,21 @@ class SurveyAnswerController extends Controller
         return redirect()->route('survey.category')
             ->with('success', 'Survey berhasil dijawab');
     }
+
+    public function detail_category($code)
+    {
+        // dd($code);
+        $category = CategorySurvey::where('code', $code)->first();
+        $options = Helper::option_array();
+        $surveys = SurveyAnswer::join('category_surveys as cs', 'cs.id', '=', 'survey_answers.id_category')
+            ->join('surveys as sv', 'sv.id', '=', 'survey_answers.id_survey')
+            ->where([
+                ['survey_answers.id_category', $category['id']],
+                ['survey_answers.status', 1],
+                ['survey_answers.id_user', Auth::guard('user')->user()->id],
+            ])
+            ->select('survey_answers.*', 'cs.name as category', 'sv.question as question', 'sv.type as type')
+            ->get();
+        return view('content.surveys.answer.v_detail_answer', compact('surveys', 'options', 'category'));
+    }
 }

@@ -73,6 +73,14 @@
             .hover-1:hover .hover-overlay {
                 opacity: 0;
             }
+
+            .custom-search-botton {
+                right: 3px;
+                top: 3px;
+                bottom: 3px;
+                line-height: 1 !important;
+                z-index: 7 !important;
+            }
         </style>
     @endpush
     <section class="hero-section inner-page">
@@ -105,52 +113,45 @@
     <section class="section pt-3">
         <div class="container">
             <div class="row d-flex justify-content-center">
-                <div class="col-md-7">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" aria-label="Text input with dropdown button">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false" style="padding: 12px 30px !important;">Dropdown</button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Separated link</a></li>
-                        </ul>
+                <div class="col-md-12">
+                    <div class="row align-items-center mb-5">
+                        <div class="col-8 mx-auto">
+                            <form action="">
+                                <div class="input-group custom-search position-relative">
+                                    <input type="text" class="form-control custom-search-input w-100" id="search"
+                                        name="search"
+                                        @isset($sort_search) value="{{ $sort_search }}" @endisset
+                                        placeholder="Masukan Pencarian">
+                                    <button class="btn btn-primary custom-search-botton position-absolute"
+                                        type="submit">Cari</button>
+                                </div>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
             </div>
             <div class="row">
                 @foreach ($galleries as $gallery)
                     @php
-                        if ($gallery->role == 'admin') {
-                            $user = $gallery->name_admin;
-                            $avatar = $gallery->file_admin ? asset($gallery->file_admin) : asset('asset/img/user4.jpg');
-                        } else {
-                            $user = $gallery->name_user;
-                            $avatar = $gallery->file_user ? asset($gallery->file_user) : asset('asset/img/user4.jpg');
-                        }
-
-                        $image = json_decode($gallery->file);
+                        $image = json_decode($gallery['file']);
                         $image = asset(reset($image));
                     @endphp
                     <div class="col-lg-3 col-md-4 col-6">
-                        <a href="{{ route('gallery.detail', $gallery->code) }}">
+                        <a href="{{ route('gallery.detail', $gallery['code']) }}">
                             <div class="hover hover-1 text-white rounded"><img src="{{ $image }}" alt="">
                                 <div class="hover-overlay"></div>
                                 <div class="hover-1-content px-5 pt-4">
                                     <h3 class="hover-1-title text-uppercase font-weight-bold mb-0 text-light">
-                                        {{ $gallery->name }}</h3>
-                                    <p class="hover-1-description font-weight-light mb-0">{!! Str::limit($gallery->description, 100) !!}</p>
+                                        {{ $gallery['name'] }}</h3>
+                                    <p class="hover-1-description font-weight-light mb-0">{!! Str::limit($gallery['description'], 100) !!}</p>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between align-items-center my-2">
                                 <div class="d-flex justify-content-start align-items-center">
-                                    <img src="{{ $avatar }}" alt="avatar" class="img-fluid rounded-circle me-3"
+                                    <img src="{{ $gallery['avatar'] }}" alt="avatar" class="img-fluid rounded-circle me-3"
                                         width="35">
-                                    <p class="my-0"><strong>{{ $user }}</strong></p>
+                                    <p class="my-0"><strong>{{ $gallery['user'] }}</strong></p>
                                 </div>
                                 <span>
                                     <i class="bi bi-eye-fill"></i> 200

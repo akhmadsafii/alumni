@@ -114,9 +114,19 @@
                                                     ) }}
                                                 </p>
                                                 <div class="d-flex justify-content-end align-items-center">
-                                                    <a href="javascript:void(0)" class="btn btn-primary btn-sm mx-1 detail"
-                                                        data-id="{{ $ctg['code'] }}"><i class="bi bi-info-circle-fill"></i>
-                                                        Detail</a>
+                                                    @if ($ctg['login'] == true && $ctg['status_terisi'] == true)
+                                                        <a href="{{ route('admin.answer.detail_category', $ctg['code']) }}"
+                                                            class="btn btn-primary btn-sm mx-1"><i
+                                                                class="bi bi-info-circle-fill"></i>
+                                                            Detail</a>
+                                                    @else
+                                                        <a href="javascript:void(0)"
+                                                            class="btn btn-primary btn-sm mx-1 detail"
+                                                            data-id="{{ $ctg['code'] }}"><i
+                                                                class="bi bi-info-circle-fill"></i>
+                                                            Detail</a>
+                                                    @endif
+
                                                     @if ($ctg['status_terisi'] == false)
                                                         <a href="{{ route('admin.answer.category', $ctg['code']) }}"
                                                             class="btn btn-success btn-sm mx-1"><i

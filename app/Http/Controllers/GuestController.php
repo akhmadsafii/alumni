@@ -43,6 +43,7 @@ class GuestController extends Controller
             ];
         }
         $categories = array_slice($categories, 0, 8);
+        // dd($categories);
         $blogs = Blog::where('status', '!=', 0)->limit(4)->get();
         $agendas = Agenda::where('status', '!=', 0)->limit(5)->get();
         return view('content.guest.v_home', compact('blogs', 'agendas', 'categories'));

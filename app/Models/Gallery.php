@@ -12,4 +12,14 @@ class Gallery extends Model
     protected $table = 'galleries';
 
     protected $guarded = [];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id');
+    }
+
+    public function admins()
+    {
+        return $this->belongsTo(Admin::class, 'id_user', 'id');
+    }
 }

@@ -55,9 +55,19 @@
                                     </div>
                                     <div class="content">
                                         <div class="d-flex justify-content-around">
-                                            <a href="javascript:void(0)" data-id="{{ $category['code'] }}"
+                                            @if ($category['login'] == true && $category['status_terisi'] == true)
+                                                <a href="{{ route('admin.answer.detail_category', $category['code']) }}"
+                                                    class="btn btn-primary btn-sm mx-1"><i
+                                                        class="bi bi-info-circle-fill"></i>
+                                                    Detail</a>
+                                            @else
+                                                <a href="javascript:void(0)" class="btn btn-primary btn-sm mx-1 detail"
+                                                    data-id="{{ $category['code'] }}"><i class="bi bi-info-circle-fill"></i>
+                                                    Detail</a>
+                                            @endif
+                                            {{-- <a href="javascript:void(0)" data-id="{{ $category['code'] }}"
                                                 class="btn btn-primary btn-sm mx-1 detail"><i class="bi bi-info-circle-fill"></i>
-                                                Detail</a>
+                                                Detail</a> --}}
                                             @if ($category['status_terisi'] == false)
                                                 <a href="{{ route('admin.answer.category', $category['code']) }}"
                                                     class="btn btn-success btn-sm mx-1"><i
