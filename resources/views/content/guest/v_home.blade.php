@@ -94,7 +94,7 @@
                 dunia kerja</p>
 
 
-            @if ($categories->isNotEmpty())
+            @if ($categories > 0)
                 <div class="row reviews-page-carousel">
                     @foreach ($categories as $ctg)
                         <div class="col-md-4">
@@ -113,14 +113,24 @@
                                                         100,
                                                     ) }}
                                                 </p>
-                                                <div class="d-flex justify-content-end">
-                                                    <a href="" class="btn btn-primary btn-sm mx-1"><i
-                                                            class="bi bi-info-circle-fill"></i> Detail</a>
-                                                    <a href="http://localhost:8000/category/beasiswa-lJxco"
-                                                        class="btn btn-success btn-sm mx-1"><i
-                                                            class="bi bi-play-circle-fill"></i>
-                                                        Mulai</a>
+                                                <div class="d-flex justify-content-end align-items-center">
+                                                    <a href="javascript:void(0)" class="btn btn-primary btn-sm mx-1 detail"
+                                                        data-id="{{ $ctg['code'] }}"><i class="bi bi-info-circle-fill"></i>
+                                                        Detail</a>
+                                                    @if ($ctg['status_terisi'] == false)
+                                                        <a href="{{ route('admin.answer.category', $ctg['code']) }}"
+                                                            class="btn btn-success btn-sm mx-1"><i
+                                                                class="bi bi-play-circle-fill"></i>
+                                                            Mulai</a>
+                                                    @else
+                                                        <div class="text-center text-success">
+                                                            <span><i class="bi bi-check-circle-fill"></i> Survey telah
+                                                                dijawab</span>
+                                                        </div>
+                                                    @endif
                                                 </div>
+                                                {{-- <br> --}}
+
                                             </div>
                                         </div>
                                     </div>
@@ -220,6 +230,51 @@
 
         </div>
     </section>
+    @push('modals')
+        <div class="modal fade" id="modalDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Detail Survey</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3 row">
+                            <label for="staticEmail" class="col-sm-6 col-form-label">Jenis</label>
+                            <div class="col-sm-6">
+                                <input type="text" readonly class="form-control-plaintext" id="name"
+                                    value="email@example.com">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="staticEmail" class="col-sm-6 col-form-label">Total Pertanyaan</label>
+                            <div class="col-sm-6">
+                                <input type="text" readonly class="form-control-plaintext" id="amount_total"
+                                    value="email@example.com">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="staticEmail" class="col-sm-6 col-form-label">Inputan Teks</label>
+                            <div class="col-sm-6">
+                                <input type="text" readonly class="form-control-plaintext" id="amount_teks"
+                                    value="email@example.com">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="staticEmail" class="col-sm-6 col-form-label">Pilihan</label>
+                            <div class="col-sm-6">
+                                <input type="text" readonly class="form-control-plaintext" id="amount_options"
+                                    value="email@example.com">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endpush
     @push('scripts')
         @include('package.swipper.swipper_js')
         <script>
@@ -228,6 +283,31 @@
                 slidesToShow: 3,
                 slidesToScroll: 3
             });
+
+            $(function() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $(document).on('click', '.detail', function() {
+                    let code = $(this).data('id');
+                    $.ajax({
+                        url: "{{ route('detail_category') }}",
+                        data: {
+                            code
+                        },
+                        success: function(data) {
+                            $('#name').val(data.name);
+                            $('#amount_total').val(data.total_question);
+                            $('#amount_options').val(data.total_option);
+                            $('#amount_teks').val(data.total_essay);
+                            $('#modalDetail').modal('show');
+                        }
+                    });
+                });
+            })
         </script>
     @endpush
 @endsection

@@ -15,6 +15,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SurveyAnswerController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\User\BlogController as UserBlogController;
 use App\Http\Controllers\User\GalleryController as UserGalleryController;
@@ -28,8 +29,14 @@ Route::get('discussion', [GuestController::class, 'discussion'])->name('discussi
 Route::get('alumni', [GuestController::class, 'alumni'])->name('alumni');
 Route::get('agenda', [GuestController::class, 'agenda'])->name('agenda');
 Route::get('survey', [UserSurveyController::class, 'category'])->name('survey.category');
+// Route::get('tes', [SurveyAnswerController::class, 'index'])->name('survey.answer');
 Route::get('category/{category}', [UserSurveyController::class, 'survey'])->name('survey.survey');
+Route::get('category-survey', [UserSurveyController::class, 'get_category'])->name('detail_category');
 // Route::get('blog', [UserBlogController::class, 'index'])->name('public.blog');
+// Route::prefix('survey')->name('survey.')->group(function () {
+//     Route::get('/', [UserBlogController::class, 'index'])->name('public');
+//     Route::get('detail/{title}', [UserBlogController::class, 'detail'])->name('detail');
+// });
 Route::prefix('blogs')->name('blog.')->group(function () {
     Route::get('/', [UserBlogController::class, 'index'])->name('public');
     Route::get('detail/{title}', [UserBlogController::class, 'detail'])->name('detail');
@@ -117,6 +124,15 @@ Route::middleware('auth:user,admin')->group(function () {
             Route::get('information/{code}', [SurveyController::class, 'information'])->name('information');
         });
 
+        Route::prefix('answer')->name('answer.')->group(function () {
+            Route::get('category/{category}', [SurveyAnswerController::class, 'index'])->name('category');
+            Route::post('/', [SurveyAnswerController::class, 'store'])->name('store');
+            // Route::get('delete', [SurveyController::class, 'delete'])->name('delete');
+            // Route::get('detail/{code}', [SurveyController::class, 'detail'])->name('detail');
+            // Route::get('info', [SurveyController::class, 'info'])->name('info');
+            // Route::get('information/{code}', [SurveyController::class, 'information'])->name('information');
+        });
+
         Route::prefix('agendas')->name('agenda.')->group(function () {
             Route::get('/', [AgendaController::class, 'index'])->name('page');
             Route::post('/', [AgendaController::class, 'store'])->name('store');
@@ -146,7 +162,7 @@ Route::middleware('auth:user,admin')->group(function () {
         Route::prefix('majors')->name('major.')->group(function () {
             Route::get('/', [MajorController::class, 'index'])->name('page');
             Route::post('/', [MajorController::class, 'store'])->name('store');
-             Route::get('delete', [MajorController::class, 'delete'])->name('delete');
+            Route::get('delete', [MajorController::class, 'delete'])->name('delete');
             Route::get('detail', [MajorController::class, 'detail'])->name('detail');
             Route::get('update-status', [MajorController::class, 'update_status'])->name('update_status');
         });

@@ -20,8 +20,29 @@ class GuestController extends Controller
 {
     public function index()
     {
-        $categories = CategorySurvey::where('status', 1)->get();
-        // dd($categories);
+        // $categories = CategorySurvey::where('status', 1)->get();
+        $all_categories =  CategorySurvey::where('status', 1)->get();
+        $answer_question = 0;
+        $filled_state = false;
+        $login = false;
+        $categories = [];
+        foreach ($all_categories as $category) {
+            if (Auth::guard('user')->check()) {
+                $login = true;
+                $answer_question = $category->answers->where('id_category', $category['id'])->where('id_user', Auth::guard('user')->user()->id)->count();
+                $filled_state = $category->surveys->count() == $category->answers->where('id_category', $category['id'])->where('id_user', Auth::guard('user')->user()->id)->count() ? true : false;
+            }
+            $categories[] = [
+                'id' => $category->id,
+                'name' => $category->name,
+                'code' => $category->code,
+                'total_pertanyaan' => $category->surveys->count(),
+                'pertanyaan_dijawab' => $answer_question,
+                'status_terisi' => $filled_state,
+                'login' => $login
+            ];
+        }
+        $categories = array_slice($categories, 0, 8);
         $blogs = Blog::where('status', '!=', 0)->limit(4)->get();
         $agendas = Agenda::where('status', '!=', 0)->limit(5)->get();
         return view('content.guest.v_home', compact('blogs', 'agendas', 'categories'));

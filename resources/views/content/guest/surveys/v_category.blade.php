@@ -42,7 +42,7 @@
             <div class="container">
                 <div class="row">
                     @foreach ($categories as $category)
-                        @if ($category['surveys_count'] != 0)
+                        @if ($category['total_pertanyaan'] != 0)
                             <div class="col-md-4">
                                 <div class="card border-info mx-sm-1 p-2 m-3">
                                     <div class="card border-info shadow text-info p-3 my-card"><i
@@ -51,16 +51,26 @@
                                         <h4>{{ strtoupper($category['name']) }}</h4>
                                     </div>
                                     <div class="text-info text-center mt-2">
-                                        <h1>{{ $category['surveys_count'] }} Soal</h1>
+                                        <h1>{{ $category['total_pertanyaan'] }} Soal</h1>
                                     </div>
                                     <div class="content">
                                         <div class="d-flex justify-content-around">
-                                            <a href="" class="btn btn-primary btn-sm mx-1"><i
-                                                    class="bi bi-info-circle-fill"></i> Detail</a>
-                                            <a href="{{ route('survey.survey', $category['code']) }}"
-                                                class="btn btn-success btn-sm mx-1"><i class="bi bi-play-circle-fill"></i>
-                                                Mulai</a>
+                                            <a href="javascript:void(0)" data-id="{{ $category['code'] }}"
+                                                class="btn btn-primary btn-sm mx-1 detail"><i class="bi bi-info-circle-fill"></i>
+                                                Detail</a>
+                                            @if ($category['status_terisi'] == false)
+                                                <a href="{{ route('admin.answer.category', $category['code']) }}"
+                                                    class="btn btn-success btn-sm mx-1"><i
+                                                        class="bi bi-play-circle-fill"></i>
+                                                    Mulai</a>
+                                            @endif
                                         </div>
+                                        @if ($category['status_terisi'] == true)
+                                            <br>
+                                            <div class="text-center text-success">
+                                                <span><i class="bi bi-check-circle-fill"></i> Survey telah dijawab</span>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -88,4 +98,77 @@
         </section>
     @endif
 
+    @push('modals')
+        <div class="modal fade" id="modalDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Detail Survey</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3 row">
+                            <label for="staticEmail" class="col-sm-6 col-form-label">Jenis</label>
+                            <div class="col-sm-6">
+                                <input type="text" readonly class="form-control-plaintext" id="name"
+                                    value="email@example.com">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="staticEmail" class="col-sm-6 col-form-label">Total Pertanyaan</label>
+                            <div class="col-sm-6">
+                                <input type="text" readonly class="form-control-plaintext" id="amount_total"
+                                    value="email@example.com">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="staticEmail" class="col-sm-6 col-form-label">Inputan Teks</label>
+                            <div class="col-sm-6">
+                                <input type="text" readonly class="form-control-plaintext" id="amount_teks"
+                                    value="email@example.com">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="staticEmail" class="col-sm-6 col-form-label">Pilihan</label>
+                            <div class="col-sm-6">
+                                <input type="text" readonly class="form-control-plaintext" id="amount_options"
+                                    value="email@example.com">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endpush
+    @push('scripts')
+        <script>
+            $(function() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $(document).on('click', '.detail', function() {
+                    let code = $(this).data('id');
+                    $.ajax({
+                        url: "{{ route('detail_category') }}",
+                        data: {
+                            code
+                        },
+                        success: function(data) {
+                            $('#name').val(data.name);
+                            $('#amount_total').val(data.total_question);
+                            $('#amount_options').val(data.total_option);
+                            $('#amount_teks').val(data.total_essay);
+                            $('#modalDetail').modal('show');
+                        }
+                    });
+                });
+            })
+        </script>
+    @endpush
 @endsection

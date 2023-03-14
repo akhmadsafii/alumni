@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Helpers;
+
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -32,11 +33,11 @@ class Helper
     public static function option_array()
     {
         $option = [
-            1 => 'Sangat Baik',
-            2 => 'Baik',
+            5 => 'Sangat Baik',
+            4 => 'Baik',
             3 => 'Cukup Baik',
-            4 => 'Kurang Baik',
-            5 => 'Tidak Baik'
+            2 => 'Kurang Baik',
+            1 => 'Tidak Baik'
         ];
         return $option;
     }
@@ -51,19 +52,19 @@ class Helper
     public static function get_option($value)
     {
         switch ($value) {
-            case 1:
+            case 5:
                 return 'Sangat Baik';
                 break;
-            case 2:
+            case 4:
                 return 'Baik';
                 break;
             case 3:
                 return 'Cukup Baik';
                 break;
-            case 4:
+            case 2:
                 return 'Kurang Baik';
                 break;
-            case 5:
+            case 1:
                 return 'Tidak Baik';
                 break;
             default:

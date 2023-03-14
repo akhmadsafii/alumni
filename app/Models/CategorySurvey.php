@@ -15,6 +15,11 @@ class CategorySurvey extends Model
 
     public function surveys()
     {
-        return $this->hasMany(Survey::class, 'id_category', 'id')->where('status', '!=', 0);;
+        return $this->hasMany(Survey::class, 'id_category', 'id')->where('status', '!=', 0);
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(SurveyAnswer::class, 'id_category', 'id')->where('status', '!=', 0);
     }
 }
