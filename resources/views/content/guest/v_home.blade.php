@@ -181,10 +181,12 @@
                                             style="background-image: url('{{ $blog['file'] != null ? asset($blog['file']) : asset('asset/img/no_image.jpeg') }}')">
                                         </div>
                                         <div class="card-body" style="min-height: 200px;">
-                                            <h5 class="card-title mb-0">{{ $blog['title'] }}</h5>
+                                            <a href="{{ route('blog.detail', $blog['code']) }}">
+                                                <h5 class="card-title mb-0">{{ $blog['title'] }}</h5>
+                                            </a>
                                             <small>{{ $blog['created_at']->diffForHumans() }}</small>
                                             <p class="card-text mt-2">{!! Str::limit($blog['content'], 200) !!}</p>
-                                            <a href="#">Read Post</a>
+                                            <a href="{{ route('blog.detail', $blog['code']) }}">Read Post</a>
                                         </div>
                                     </div>
                                 </div>
