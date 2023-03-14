@@ -7,17 +7,20 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\BlogResource;
 use App\Models\Blog;
 use App\Models\CategoryOther;
+use App\Traits\Nestcode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class BlogController extends Controller
 {
+    use Nestcode;
+
     public function index(Request $request)
     {
         $sort_search = null;
         $blog = Blog::latest()->where('status', '!=', 0);
-        if ($request->search != null){
-            $blog = $blog->where('title', 'like', '%'.$request->search.'%');
+        if ($request->search != null) {
+            $blog = $blog->where('title', 'like', '%' . $request->search . '%');
             $sort_search = $request->search;
         }
         $blog = $blog->get();
@@ -34,21 +37,10 @@ class BlogController extends Controller
 
     public function detail($title)
     {
+        $this->countBlogView($title);
         $raw_blog = Blog::where('blogs.code', $title)->get();
         $blog = BlogResource::collection($raw_blog)->resolve();
         $blog = reset($blog);
-        // dd($blog);
-        // dd(reset($blog));
-        // $blog = Blog::where('blogs.code', $title) ->select('blogs.*', 'users.name as name_user', 'users.file as file_user', 'admins.name as name_admin', 'admins.file as file_admin')
-        // ->leftJoin('admins', function ($join) {
-        //     $join->on('admins.id', '=', 'blogs.id_user')
-        //         ->where('blogs.role', '=', 'admin');
-        // })
-        // ->leftJoin('users', function ($join) {
-        //     $join->on('users.id', '=', 'blogs.id_user')
-        //         ->where('blogs.role', '=', 'user');
-        // })->first();
-        // dd($blog);
         return view('content.guest.blogs.v_detail_blog', compact('blog'));
     }
 }

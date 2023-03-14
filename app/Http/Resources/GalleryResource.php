@@ -19,6 +19,7 @@ class GalleryResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'file' => $this->file,
+            'total_seen' => $this->total_seen,
             'created_at' => $this->created_at->diffForHumans(),
         ];
     }

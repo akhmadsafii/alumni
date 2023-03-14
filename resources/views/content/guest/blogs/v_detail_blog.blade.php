@@ -45,12 +45,11 @@
                                 </ul>
                             </div>
                             <span>
-                                24
+                                {{ $blog['total_seen'] }}
                             </span>
                         </div>
                         <a href=""></a>
-                        <div class="img-blog"
-                            style="background-image: url('{{ $blog['file'] }}')">
+                        <div class="img-blog" style="background-image: url('{{ $blog['file'] }}')">
                         </div>
                         <p>{!! $blog['content'] !!}</p>
 

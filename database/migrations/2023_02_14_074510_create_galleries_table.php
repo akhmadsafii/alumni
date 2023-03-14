@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('name');
             $table->longText('description')->nullable();
             $table->json('file')->nullable();
+            $table->integer('total_seen')->default(0);
             $table->tinyInteger('publish')->default(0);
             $table->tinyInteger('status')->default(1);
             $table->timestamps();

@@ -18,6 +18,7 @@ class BlogResource extends JsonResource
             'code' => $this->code,
             'title' => $this->title,
             'content' => $this->content,
+            'total_seen' => $this->total_seen,
             'file' => $this->file ? asset($this->file) : asset('asset/img/no_image.jpeg'),
             'created_at' => $this->created_at->diffForHumans(),
         ];

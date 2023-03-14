@@ -7,11 +7,13 @@ use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GalleryResource;
 use App\Models\Gallery;
+use App\Traits\Nestcode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class GalleryController extends Controller
 {
+    use Nestcode;
     public function index(Request $request)
     {
         $sort_search = null;
@@ -28,6 +30,7 @@ class GalleryController extends Controller
 
     public function detail($title)
     {
+        $this->countGalleryView($title);
         $gallery = Gallery::where('galleries.code', $title)->select('galleries.*', 'users.name as name_user', 'users.file as file_user', 'admins.name as name_admin', 'admins.file as file_admin')
             ->leftJoin('admins', function ($join) {
                 $join->on('admins.id', '=', 'galleries.id_user')
