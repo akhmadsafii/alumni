@@ -8,8 +8,9 @@ class DiscussionResource extends JsonResource
 {
     public function toArray($request)
     {
-        $file_admin = $this->admins->file ? asset($this->admins->file) : asset('asset/img/user4.jpg');
-        $file_user = $this->users->file ? asset($this->users->file) : asset('asset/img/user4.jpg');
+        // dd($this->users);
+        $file_admin = $this->admins && $this->admins->file ? asset($this->admins->file) : asset('asset/img/user4.jpg');
+        $file_user = $this->users && $this->users->file ? asset($this->users->file) : asset('asset/img/user4.jpg');
         return [
             'id' => $this->id,
             'role' => $this->role,
