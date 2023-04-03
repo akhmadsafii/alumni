@@ -29,9 +29,9 @@ class DiscussionController extends Controller
             $comment = [];
             foreach ($comments as $cm) {
                 if ($cm['role'] == 'user') {
-                    $user_comment = User::find($ld['id_user']);
+                    $user_comment = User::find($cm['id_user']);
                 } else {
-                    $user_comment = Admin::find($ld['id_user']);
+                    $user_comment = Admin::find($cm['id_user']);
                 }
                 $comment[] = [
                     'id' => $cm['id'],

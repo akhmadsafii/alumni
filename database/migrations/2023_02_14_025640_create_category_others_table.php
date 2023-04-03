@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('category_others', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code')->nullable();
-            $table->enum('type', ['job', 'blog']);
+            $table->enum('type', ['job', 'blog', 'gallery']);
             $table->string('name');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();

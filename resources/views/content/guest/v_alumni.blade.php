@@ -2,13 +2,73 @@
 @section('content')
     @push('styles')
         <style>
-            .custom-search-botton {
-                right: 3px;
-                top: 3px;
-                bottom: 3px;
-                line-height: 1 !important;
-                z-index: 7 !important;
+            .search-form {
+                background-color: #f5f5f5;
+                border-radius: 25px;
+                padding: 20px;
             }
+
+            .search-input {
+                border: none;
+                border-radius: 25px;
+                padding: 10px;
+                font-size: 16px;
+                background-color: transparent;
+                color: #555;
+            }
+
+            .search-input:focus {
+                outline: none;
+            }
+
+            .search-button {
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 25px;
+                padding: 10px 20px;
+                margin-left: -40px;
+                transition: 0.3s;
+            }
+
+            .search-button:hover {
+                transform: translateX(5px);
+            }
+
+            .form-group {
+                margin-bottom: 1rem;
+            }
+
+            .form-control {
+                border: none;
+                border-radius: 25px;
+                background-color: #fff;
+                padding: 10px;
+                font-size: 16px;
+                color: #555;
+            }
+
+            .form-control:focus {
+                outline: none;
+                box-shadow: none;
+            }
+
+            .select2-container--default .select2-selection--single .select2-selection__rendered {
+                color: #555;
+            }
+
+            .select2-container--default .select2-selection--single {
+                border: none;
+                border-radius: 25px;
+                background-color: #fff;
+                padding: 10px;
+            }
+
+            .select2-container--default .select2-selection--single:focus {
+                outline: none;
+                box-shadow: none;
+            }
+
 
             .banner {
                 position: absolute;
@@ -50,21 +110,20 @@
     </section>
     <section class="section pt-2">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-8 mx-auto">
-                    <form action="">
-                        <div class="input-group custom-search position-relative">
-                            <input type="text" class="form-control custom-search-input w-100"
-                                placeholder="Masukan Pencarian"
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <form action="" class="search-form">
+                        <div class="input-group">
+                            <input type="text" class="form-control search-input"
+                                placeholder="Masukkan kata kunci pencarian"
                                 @isset($sort_search) value="{{ $sort_search }}" @endisset name="search"
                                 required>
-                            <button class="btn btn-primary custom-search-botton position-absolute"
-                                type="submit">Cari</button>
+                            <button class="btn search-button" type="submit"><i class="bi bi-search"></i></button>
                         </div>
-                        <div class="row">
+                        <div class="row mt-4">
                             <div class="col-md-6">
-                                <div class="my-3">
-                                    <label for="">Jurusan</label>
+                                <div class="form-group">
+                                    <label for="id_major">Jurusan</label>
                                     <select name="major" id="id_major" class="form-control">
                                         <option value="" selected disabled>Pilih Jurusan</option>
                                         @foreach ($majors as $major)
@@ -74,8 +133,8 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="my-3">
-                                    <label for="">Angkatan</label>
+                                <div class="form-group">
+                                    <label for="graduating_class">Angkatan</label>
                                     <select name="graduating_class" id="graduating_class" class="form-control">
                                         <option value="" selected disabled>-- Pilih Angkatan --</option>
                                         @foreach ($graduating_class as $year)
@@ -87,7 +146,6 @@
                         </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </section>
@@ -101,14 +159,10 @@
                                 class="profile-card card rounded-lg shadow p-4 p-xl-5 mb-4 text-center position-relative overflow-hidden">
                                 <div class="banner" style="background-image: url({{ asset('asset/img/bg-1.png') }});"></div>
                                 <img src="{{ $user['file'] }}" alt="" class="rounded-circle mx-auto mb-3">
-                                <small class="mb-0">{{ $user['major'] }}</small>
                                 <h5 class="mb-2">{{ $user['name'] }}</h5>
-                                <div class="text-center mb-4">
-                                    <div class="review">
-                                        <p class="mb-0">Angkatan {{ $user['graduating_class'] }}</p>
-                                        <p>Lulus Tahun {{ $user['graduation_year'] }}</p>
-                                    </div>
-                                </div>
+                                <small class="text-muted">{{ $user['major'] }}</small>
+                                <p class="mt-3">{{ $user['graduating_class'] }}</p>
+                                <p class="text-muted mb-0">Lulus Tahun {{ $user['graduation_year'] }}</p>
                             </div>
                         </div>
                     @endforeach
@@ -117,17 +171,20 @@
                         <div class="row align-items-center">
                             <div class="col-md-4 me-auto">
                                 <h2 class="mb-4">Alumni tidak tersedia</h2>
-                                <p class="mb-4">Untuk saat ini belum ada alumni yang tersedia. Silahkan akses dan coba dilain
-                                    waktu kembali</p>
+                                <p class="mb-4">Untuk saat ini belum ada alumni yang tersedia. Silahkan akses dan coba
+                                    dilain waktu kembali</p>
                             </div>
-                            <div class="col-md-6 aos-init aos-animate" data-aos="fade-left"> <img
-                                    src="{{ asset('asset/guest/img/empty.svg') }}" alt="Image" class="img-fluid"></div>
+                            <div class="col-md-6 aos-init aos-animate" data-aos="fade-left">
+                                <img src="{{ asset('asset/guest/img/empty.svg') }}" alt="Image" class="img-fluid">
+                            </div>
                         </div>
                     </div>
                 @endif
 
-                <div class="d-flex justify-content-center">
-                    {{ $users->links() }}
+                <div class="col-12">
+                    <div class="d-flex justify-content-center mt-4">
+                        {{ $users->links() }}
+                    </div>
                 </div>
             </div>
         </div>

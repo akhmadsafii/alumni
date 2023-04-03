@@ -357,7 +357,7 @@
                                         m-dropdown-toggle="click">
                                         <a href="#" class="m-nav__link m-dropdown__toggle">
                                             <span class="m-topbar__userpic">
-                                                <img src="{{ Auth::guard('admin')->user()->name ? asset(Auth::guard('admin')->user()->file) : asset('asset/img/user4.jpg') }}"
+                                                <img src="{{ Auth::guard('admin')->user()->file ? asset(Auth::guard('admin')->user()->file) : asset('asset/img/user4.jpg') }}"
                                                     class="m--img-rounded m--marginless m--img-centered"
                                                     alt="" />
                                             </span>
@@ -374,7 +374,7 @@
                                                 <div class="m-dropdown__header m--align-center">
                                                     <div class="m-card-user m-card-user--skin-light">
                                                         <div class="m-card-user__pic">
-                                                            <img src="{{ Auth::guard('admin')->user()->name ? asset(Auth::guard('admin')->user()->file) : asset('asset/img/user4.jpg') }}"
+                                                            <img src="{{ Auth::guard('admin')->user()->file ? asset(Auth::guard('admin')->user()->file) : asset('asset/img/user4.jpg') }}"
                                                                 class="m--img-rounded m--marginless" alt="" />
                                                         </div>
                                                         <div class="m-card-user__details">
@@ -416,34 +416,6 @@
                                                                         </span>
                                                                     </span>
                                                                 </a>
-                                                            </li>
-                                                            <li class="m-nav__item">
-                                                                <a href="profile.html" class="m-nav__link">
-                                                                    <i class="m-nav__link-icon flaticon-share"></i>
-                                                                    <span class="m-nav__link-text">Activity</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="m-nav__item">
-                                                                <a href="profile.html" class="m-nav__link">
-                                                                    <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                                    <span class="m-nav__link-text">Messages</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="m-nav__separator m-nav__separator--fit">
-                                                            </li>
-                                                            <li class="m-nav__item">
-                                                                <a href="profile.html" class="m-nav__link">
-                                                                    <i class="m-nav__link-icon flaticon-info"></i>
-                                                                    <span class="m-nav__link-text">FAQ</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="m-nav__item">
-                                                                <a href="profile.html" class="m-nav__link">
-                                                                    <i class="m-nav__link-icon flaticon-lifebuoy"></i>
-                                                                    <span class="m-nav__link-text">Support</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="m-nav__separator m-nav__separator--fit">
                                                             </li>
                                                             <li class="m-nav__item">
                                                                 <a href="{{ route('auth.logout') }}"

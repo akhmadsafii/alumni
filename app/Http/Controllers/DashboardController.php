@@ -9,6 +9,7 @@ class DashboardController extends Controller
 {
     public function admin()
     {
+        // dd(Auth::guard('admin')->user()->file);
         if (Auth::guard('admin')->check()) {
             session()->put('role', 'admin');
             session()->put('id', Auth::guard('admin')->user()->id);

@@ -27,116 +27,132 @@
         </div>
     </div>
     <div class="m-content">
-        <div class="text-center mb-3">
-            <h2>Selamat Datang di Aplikasi E Surat</h2>
-            <div>Aplikasi ini memudahkan dalam pengolahan surat dan disposisi</div>
-        </div>
-        <div class="m-portlet m-portlet--bordered-semi m-portlet--space m-portlet--full-height ">
-            <div class="m-portlet__body">
-                <div class="row">
-                    <div class="col-xl-2 col-sm-4 col-6">
-                        <div class="card my-1">
-                            <div class="card-body">
-                                <center>
-                                    <h3 class="primary"><i class="flaticon-feed fa-3x"></i></h3>
-                                    <span>Surat Masuk</span>
-                                </center>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-sm-4 col-6">
-                        <div class="card my-1">
-                            <div class="card-body">
-                                <center>
-                                    <h3 class="primary"><i class="flaticon-mail fa-3x"></i></h3>
-                                    <span>Surat Keluar</span>
-                                </center>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-sm-4 col-6">
-                        <div class="card my-1">
-                            <div class="card-body">
-                                <center>
-                                    <h3 class="primary"><i class="flaticon-list fa-3x"></i></h3>
-                                    <span>Draft</span>
-                                </center>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-sm-4 col-6">
-                        <div class="card my-1">
-                            <div class="card-body">
-                                <center>
-                                    <h3 class="primary"><i class="flaticon-file-1 fa-3x"></i></h3>
-                                    <span>Buat Pesan</span>
-                                </center>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-sm-4 col-6">
-                        <div class="card my-1">
-                            <div class="card-body">
-                                <center>
-                                    <h3 class="primary"><i class="flaticon-folder-2 fa-3x"></i></h3>
-                                    <span>Disposisi Masuk</span>
-                                </center>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-sm-4 col-6">
-                        <div class="card my-1">
-                            <div class="card-body">
-                                <center>
-                                    <h3 class="primary"><i class="flaticon-folder-3 fa-3x"></i></h3>
-                                    <span>Disposisi Keluar</span>
-                                </center>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-xl-4 col-sm-4 col-6">
-                <div class="card my-1">
+                <div class="card bg-primary text-white m-portlet">
                     <div class="card-body d-flex">
                         <div class="mx-auto">
                             <i class="la la-users fa-4x"></i>
                         </div>
                         <div class="description">
                             <h5 class="card-title">Total Alumni</h5>
-                            120 Alumni
+                            <p class="card-text">120 Alumni</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xl-4 col-sm-4 col-6">
-                <div class="card my-1">
+                <div class="card bg-danger text-white m-portlet">
                     <div class="card-body d-flex">
                         <div class="mx-auto">
                             <i class="la la-venus fa-4x"></i>
                         </div>
                         <div class="description">
                             <h5 class="card-title">Alumni Perempuan</h5>
-                            120 Alumni
+                            <p class="card-text">80 Alumni</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xl-4 col-sm-4 col-6">
-                <div class="card my-1">
+                <div class="card bg-success text-white m-portlet">
                     <div class="card-body d-flex">
                         <div class="mx-auto">
                             <i class="la la-mars fa-4x"></i>
                         </div>
                         <div class="description">
                             <h5 class="card-title">Total Laki-laki</h5>
-                            120 Alumni
+                            <p class="card-text">40 Alumni</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card shadow h-100">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h5 class="card-title mb-0">Jumlah Survey</h5>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-chart-pie fa-2x text-primary"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 mb-0">
+                            <div class="text-muted small">Total Survey</div>
+                            <span class="h5 font-weight-bold mb-0">120</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card shadow h-100">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h5 class="card-title mb-0">Partisipan Survey</h5>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-users fa-2x text-success"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 mb-0">
+                            <div class="text-muted small">Jumlah Partisipan</div>
+                            <span class="h5 font-weight-bold mb-0">100</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Statistik pekerjaan Alumni</h5>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Data Partisipan Survey</h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Angkatan</th>
+                                    <th>Jumlah Siswa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Data Siswa Per Angkatan</h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Angkatan</th>
+                                    <th>Jumlah Siswa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 @endsection

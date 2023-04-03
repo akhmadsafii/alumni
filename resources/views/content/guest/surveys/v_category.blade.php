@@ -2,10 +2,10 @@
 @section('content')
     @push('styles')
         <style>
-            .my-card {
+            /* .my-card {
                 position: absolute;
                 top: -20px;
-            }
+            } */
         </style>
     @endpush
     <section class="hero-section inner-page">
@@ -40,56 +40,46 @@
     @if ($categories->isNotEmpty())
         <section class="section pt-3">
             <div class="container">
-                <div class="row">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
                     @foreach ($categories as $category)
-                        @if ($category['total_pertanyaan'] != 0)
-                            <div class="col-md-4">
-                                <div class="card border-info mx-sm-1 p-2 m-3">
-                                    <div class="card border-info shadow text-info p-3 my-card"><i
-                                            class="bi bi-bar-chart-line-fill" style="font-size:26px;"></i></div>
-                                    <div class="text-info text-center mt-5">
-                                        <h4>{{ strtoupper($category['name']) }}</h4>
-                                    </div>
-                                    <div class="text-info text-center mt-2">
-                                        <h1>{{ $category['total_pertanyaan'] }} Soal</h1>
-                                    </div>
-                                    <div class="content">
-                                        <div class="d-flex justify-content-around">
-                                            @if ($category['login'] == true && $category['status_terisi'] == true)
-                                                <a href="{{ route('admin.answer.detail_category', $category['code']) }}"
-                                                    class="btn btn-primary btn-sm mx-1"><i
-                                                        class="bi bi-info-circle-fill"></i>
-                                                    Detail</a>
-                                            @else
-                                                <a href="javascript:void(0)" class="btn btn-primary btn-sm mx-1 detail"
-                                                    data-id="{{ $category['code'] }}"><i class="bi bi-info-circle-fill"></i>
-                                                    Detail</a>
-                                            @endif
-                                            {{-- <a href="javascript:void(0)" data-id="{{ $category['code'] }}"
-                                                class="btn btn-primary btn-sm mx-1 detail"><i class="bi bi-info-circle-fill"></i>
-                                                Detail</a> --}}
-                                            @if ($category['status_terisi'] == false)
-                                                <a href="{{ route('admin.answer.category', $category['code']) }}"
-                                                    class="btn btn-success btn-sm mx-1"><i
-                                                        class="bi bi-play-circle-fill"></i>
-                                                    Mulai</a>
-                                            @endif
-                                        </div>
-                                        @if ($category['status_terisi'] == true)
-                                            <br>
-                                            <div class="text-center text-success">
-                                                <span><i class="bi bi-check-circle-fill"></i> Survey telah dijawab</span>
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
+                      @if ($category['total_pertanyaan'] != 0)
+                        <div class="col">
+                          <div class="card h-100">
+                            <div class="card-header bg-info text-white text-center">
+                              <h4 class="my-3">{{ strtoupper($category['name']) }}</h4>
                             </div>
-                        @endif
+                            <div class="card-body d-flex flex-column justify-content-center">
+                              <h1 class="display-4 text-center mb-4">{{ $category['total_pertanyaan'] }} Soal</h1>
+                              <div class="d-flex justify-content-around">
+                                @if ($category['login'] == true && $category['status_terisi'] == true)
+                                  <a href="{{ route('admin.answer.detail_category', $category['code']) }}" class="btn btn-primary">
+                                    <i class="bi bi-info-circle-fill"></i> Detail
+                                  </a>
+                                @else
+                                  <a href="javascript:void(0)" class="btn btn-primary detail" data-id="{{ $category['code'] }}">
+                                    <i class="bi bi-info-circle-fill"></i> Detail
+                                  </a>
+                                @endif
+                                @if ($category['status_terisi'] == false)
+                                  <a href="{{ route('admin.answer.category', $category['code']) }}" class="btn btn-success">
+                                    <i class="bi bi-play-circle-fill"></i> Mulai
+                                  </a>
+                                @endif
+                              </div>
+                              @if ($category['status_terisi'] == true)
+                                <div class="text-center text-success mt-3">
+                                  <span><i class="bi bi-check-circle-fill"></i> Survey telah dijawab</span>
+                                </div>
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                      @endif
                     @endforeach
-                </div>
-                <div class="d-flex justify-content-center">
+                  </div>
+                  <div class="d-flex justify-content-center mt-4">
                     {{ $categories->links() }}
-                </div>
+                  </div>
             </div>
         </section>
     @else
