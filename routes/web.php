@@ -52,6 +52,11 @@ Route::prefix('auth')->name('auth.')->group(function () {
 });
 
 Route::middleware('auth:user,admin')->group(function () {
+    Route::prefix('profiles')->name('profile.')->group(function () {
+        Route::get('/', [ProfileController::class, 'user'])->name('user');
+        Route::post('update', [ProfileController::class, 'update_profile'])->name('update_user');
+
+    });
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'admin'])->name('dashboard');
         Route::prefix('manages')->name('manage.')->group(function () {

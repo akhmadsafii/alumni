@@ -36,7 +36,7 @@
                         </div>
                         <div class="description">
                             <h5 class="card-title">Total Alumni</h5>
-                            <p class="card-text">120 Alumni</p>
+                            <p class="card-text">{{ $statistic['total_alumni'] }} Alumni</p>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                         </div>
                         <div class="description">
                             <h5 class="card-title">Alumni Perempuan</h5>
-                            <p class="card-text">80 Alumni</p>
+                            <p class="card-text">{{ $statistic['gender']['female'] }} Alumni</p>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="description">
                             <h5 class="card-title">Total Laki-laki</h5>
-                            <p class="card-text">40 Alumni</p>
+                            <p class="card-text">{{ $statistic['gender']['male'] }} Alumni</p>
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                         </div>
                         <div class="mt-4 mb-0">
                             <div class="text-muted small">Total Survey</div>
-                            <span class="h5 font-weight-bold mb-0">120</span>
+                            <span class="h5 font-weight-bold mb-0">{{ $statistic['survei'] }}</span>
                         </div>
                     </div>
                 </div>
@@ -101,40 +101,37 @@
                         </div>
                         <div class="mt-4 mb-0">
                             <div class="text-muted small">Jumlah Partisipan</div>
-                            <span class="h5 font-weight-bold mb-0">100</span>
+                            <span class="h5 font-weight-bold mb-0">{{ $statistic['participant'] }}</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Statistik pekerjaan Alumni</h5>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Partisipan Survey</h5>
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Angkatan</th>
-                                    <th>Jumlah Siswa</th>
+                                    <th>Kategori</th>
+                                    <th>Jumlah Partisipan</th>
                                 </tr>
                             </thead>
                             <tbody>
-
+                                @foreach ($statistic_dashboard['survey'] as $survey)
+                                    <tr>
+                                        <td>{{ $survey['name'] }}</td>
+                                        <td>{{ $survey['participant'] }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Siswa Per Angkatan</h5>
@@ -146,7 +143,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-
+                                @foreach ($statistic_dashboard['angkatan'] as $angkatan)
+                                    <tr>
+                                        <td>{{ $angkatan['lulusan'] }}</td>
+                                        <td>{{ $angkatan['total'] }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

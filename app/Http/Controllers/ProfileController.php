@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\ImageHelper;
 use App\Models\Admin;
+use App\Models\Major;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -13,8 +14,6 @@ class ProfileController extends Controller
 {
     public function admin()
     {
-        // Auth::guard('admin')->user()->name;
-        // return view('content.profiles.admin.v_main');
         if ($_GET['information'] == 'detail') {
             return view('content.profiles.admin.v_information');
         } else if ($_GET['information'] == 'edit') {
@@ -24,6 +23,59 @@ class ProfileController extends Controller
         } else {
             return view('content.profiles.admin.v_close_account');
         }
+    }
+
+    public function user()
+    {
+        $user = auth()->user();
+        $majors = Major::where('status', 1)->get();
+        return view('content.guest.v_profile', compact('majors', 'user'));
+    }
+
+    public function update_profile(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'nik' => 'required|string|max:255',
+            'place_of_birth' => 'required|string|max:255',
+            'date_of_birth' => 'required|date',
+            'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
+            'phone' => 'required|string|max:255',
+            'gender' => 'required|in:male,female',
+            'id_major' => 'required|exists:majors,id',
+            'graduating_class' => 'required|string|max:255',
+            'graduation_year' => 'required|numeric|min:1900|max:' . (date('Y') + 1),
+            'address' => 'required|string|max:65535',
+            'job' => 'required|string|max:255',
+            'corresponding_major' => 'required|boolean',
+            'university' => 'required|string|max:255',
+            'study_program' => 'required|string|max:255',
+            'business_field' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+            $user = Auth::user();
+            $data = $request->toArray();
+            if (!empty($request->file)) {
+                $data = ImageHelper::upload_asset($request, 'file', 'profile', $data);
+            }
+            Admin::updateOrCreate(
+                ['id' => $user->id],
+                $data
+            );
+
+            return response()->json([
+                'message' => 'Admin berhasil disimpan',
+                'status' => true,
+            ], 200);
+        }
+
+        // Redirect ke halaman profile dengan pesan sukses
+        return redirect()->back()->with('success', 'Profile berhasil diupdate.');
     }
 
     public function update(Request $request)
